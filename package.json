@@ -1,0 +1,35 @@
+{
+    "name": "multimedia_share",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "cross-env NODE_ENV=production node src/index",
+        "dev": "cross-env NODE_ENV=development nodemon -e js,css,hbs,json src/index"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@handlebars/allow-prototype-access": "^1.0.3",
+        "colors": "^1.4.0",
+        "connect-flash": "^0.1.1",
+        "cross-env": "^6.0.3",
+        "dotenv": "^8.2.0",
+        "errorhandler": "^1.5.1",
+        "express": "^4.17.1",
+        "express-handlebars": "^3.1.0",
+        "express-session": "^1.17.1",
+        "fs-extra": "^8.1.0",
+        "moment": "^2.26.0",
+        "mongoose": "^5.9.16",
+        "morgan": "^1.10.0",
+        "multer": "^1.4.2"
+    },
+    "devDependencies": {
+        "eslint": "^6.8.0",
+        "handlebars": "^4.7.6",
+        "nodemon": "^2.0.4"
+    }
+}
