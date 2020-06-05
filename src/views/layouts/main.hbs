@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{!-- Bootstrap --}}
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+    {{!-- Custom CSS --}}
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
+
+    <title>ImgShare</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <a href="/" class="navbar-brand"><img src="/public/images/imgshare-logo.png" alt="ImgShare"></a>
+        <a href="/upload">Subir archivo</a>
+    </nav>
+
+    <div class="container-fluid p-4">
+        {{{ body }}}
+    </div>
+
+    {{!-- Script --}}
+    <script src="/public/js/script.js"></script>
+</body>
+
+</html>
