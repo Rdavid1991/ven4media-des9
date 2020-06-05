@@ -12,15 +12,12 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@handlebars/allow-prototype-access": "^1.0.3",
         "colors": "^1.4.0",
-        "connect-flash": "^0.1.1",
         "cross-env": "^6.0.3",
         "dotenv": "^8.2.0",
-        "errorhandler": "^1.5.1",
         "express": "^4.17.1",
+        "handlebars": "^4.7.6",
         "express-handlebars": "^3.1.0",
-        "express-session": "^1.17.1",
         "fs-extra": "^8.1.0",
         "moment": "^2.26.0",
         "mongoose": "^5.9.16",
@@ -29,7 +26,6 @@
     },
     "devDependencies": {
         "eslint": "^6.8.0",
-        "handlebars": "^4.7.6",
         "nodemon": "^2.0.4"
     }
 }
