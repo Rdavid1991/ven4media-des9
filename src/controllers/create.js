@@ -6,7 +6,7 @@ const { Image } = require('../models');
 
 module.exports = {
     data: async (req, res) => {
-        
+
         const imageTempPath = req.file.path;
         const ext = path.extname(req.file.originalname).toLowerCase();
 
@@ -36,7 +36,6 @@ const saveImage = async (ext, imageTempPath, req) => {
             title: req.body.title,
             filename: imageUrl + ext,
             description: req.body.description,
-            //username: req.user.email
         });
         newImage.save();
 
