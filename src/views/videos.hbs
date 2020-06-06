@@ -1,18 +1,23 @@
 <div class="card mt-2 w-100">
     <div class="card-header bg-dark text-white">
-        <h3> <i class="far fa-images"></i>Lista de imagenes</h3>
+        <h3> <i class="far fa-images"></i>Lista de Videos</h3>
     </div>
     <div class="card-body {{url}}">
-        <div class="row">
-            {{#each videos}}
+        {{#each videos}}
+        <div id="preview" onclick="watchPreview('{{miniature}}')">
+        <div class="row mt-3 hover p-1">
             <div class="col-md-2">
-                <div id="preview" onclick="watchPreview('{{miniature}}')">
-                    <img src="http://localhost:4000/video/miniature/{{miniature}}.png" alt="" class="w-10 h-10 img-thumbnail">
-                </div>
+                <img src="http://localhost:4000/video/miniature/{{miniature}}.png" alt=""
+                    class="w-10 h-10 img-thumbnail">
             </div>
-            {{/each}}
+            <div class="col-md-10">
+                <h4 class="font-weight-bold">{{title}}</h4>
+                <p class="text-truncate">{{description}}</p>
+            </div>
         </div>
     </div>
+    {{/each}}
+</div>
 </div>
 
 {{>video-modal}}
