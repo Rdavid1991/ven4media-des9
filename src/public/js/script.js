@@ -31,10 +31,18 @@ document.getElementById("submit").addEventListener("click", (e) => {
     });
     xhs.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+            let ext = String(xhs.response);
+
             let groupButton = document.getElementById("group-button");
-            groupButton.innerHTML = `<a href="/images/${xhs.response}" class="btn btn-success">Successful</a>`;
+            if (ext.match(/.mp4/g)) {
+                groupButton.innerHTML = `<a href="/video/${xhs.response}" class="btn btn-success">Successful</a>`;
+            } else if (ext.match(/.jpg/g) || ext.match(/.png/g) || ext.match(/.jpeg/g) || ext.match(/.gif/g)) {
+                groupButton.innerHTML = `<a href="/images/${xhs.response}" class="btn btn-success">Successful</a>`;
+            } else if (ext.match(/.mp3/g) || ext.match(/.acc/g)) {
+                groupButton.innerHTML = `<a href="/sound/${xhs.response}" class="btn btn-success">Successful</a>`;
+            }
             openModal();
-        }else if (this.readyState == 4 && this.status != 200) {
+        } else if (this.readyState == 4 && this.status != 200) {
             console.log("facho");
         }
     };
@@ -47,4 +55,24 @@ var modal = document.getElementById("myModal");
 // When the user clicks on the button, open the modal
 function openModal() {
     modal.style.display = "block";
+}
+
+function watchPreview(miniature) {
+
+    console.log("funciona");
+    
+
+    var modal = document.getElementById("video-modal");
+    modal.style.display = "block";
+
+    let xhs = new XMLHttpRequest();
+    xhs.open("GET", "/watch/" + miniature);
+    xhs.responseType = "arraybuffer";
+    xhs.onload = (e) => {
+        let blob = new Blob([xhs.response]);
+        let url = URL.createObjectURL(blob);
+        let video = document.getElementById("video-preview");
+        video.src = url;
+    };
+    xhs.send();
 }

@@ -1,8 +1,6 @@
 const path = require("path");
 const fs = require('fs-extra');
 const Ffmpeg = require("fluent-ffmpeg");
-
-
 const libs = require('../helpers/libs');
 const { Image, Video } = require('../models');
 
@@ -60,10 +58,13 @@ const saveVideo = async (ext, videoTempPath, req) => {
     if (video.length > 0) {
         saveImage();
     } else {
-        const targetPath = path.resolve(`src/public/upload/video/${videoUrl}${ext}`);
+        const targetPath = path.resolve(`src/upload/video/${videoUrl}${ext}`);
+        if (!fs.existsSync("src/upload/video/")){
+            fs.mkdirSync("src/upload/video/");
+        }
 
         await fs.rename(videoTempPath, targetPath);
-        const newVideo = new Image({
+        const newVideo = new Video({
             title: req.body.title,
             filename: videoUrl + ext,
             miniature: miniature,
@@ -75,12 +76,18 @@ const saveVideo = async (ext, videoTempPath, req) => {
         Ffmpeg.setFfmpegPath("C:/Users/david/Desktop/bin/ffmpeg.exe");
         Ffmpeg.setFfprobePath("C:/Users/david/Desktop/bin/ffprobe.exe");
 
-        const ffmpeg = Ffmpeg();
-        ffmpeg("src/public/upload/video/0CmafMAWXn9rmJxwCybQTfDsvqsPzYp.mp4")
+        const miniatureRoute = 'src/upload/video-miniature';
+
+        if (!fs.existsSync(miniatureRoute)){
+            fs.mkdirSync(miniatureRoute);
+        }
+
+        const ffmpeg = Ffmpeg;
+        ffmpeg(targetPath)
         .screenshots({
             count: 1,
             filename: miniature,
-            folder: path.join(__dirname, '../upload/video-miniature/'),
+            folder:miniatureRoute ,
             size: '320x240'
           });
 
@@ -109,4 +116,3 @@ const saveAudio = async (ext, audioTempPath, req) => {
         return audioUrl;
     }
 };
-
