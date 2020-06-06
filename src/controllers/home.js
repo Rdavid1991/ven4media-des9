@@ -1,4 +1,4 @@
-const { Image } = require('../models');
+const { Image, Video } = require('../models');
 
 module.exports = {
 
@@ -20,7 +20,10 @@ module.exports = {
     },
 
     videos: async (req, res) => {
-        res.render('videos');
+        const videos = await Video.find({});
+        let viewModel = { videos: [] };
+        viewModel.videos = videos;
+        res.render('videos', viewModel);
     },
 
     upload: async (req, res) => {
