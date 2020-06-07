@@ -11,7 +11,7 @@ module.exports ={
     miniature:(req,res)=>{
         res.sendFile(path.join(__dirname,`../upload/video-miniature/${req.params.miniature_id}`));
     },
-    video:async (req,res) =>{
+    videoModal:async (req,res) =>{
         const video = await Video.findOne({ miniature: { $regex: String(req.params.video_id) } });
         if (video) {
             video.views = video.views + 1;
@@ -20,5 +20,8 @@ module.exports ={
         } else {
             res.redirect("/");
         }
+    },
+    videoPreview:(req,res)=>{
+        res.sendFile(path.join(__dirname,`../upload/video/${req.params.video_id}`));
     }
 };
