@@ -12,11 +12,15 @@ function loadImage(image) {
     };
     xhs.send();
 }
+/* Variables */
+let uploadButton;
 
 /* htmlElements */
 let file = document.getElementById("file");
 let title = document.getElementById("title");
 let description = document.getElementById("description");
+let progress = document.getElementById("progress-upload");
+let groupButton = document.getElementById("group-button");
 
 let video = document.getElementById("video-preview");
 
@@ -30,36 +34,61 @@ description.addEventListener("change", (e) => {
     e.target.parentNode.classList.toggle("required-valid", false);
 });
 
+/* Ver videos recien subido */
+function loadVideo(video) {
+    let xhs = new XMLHttpRequest();
+    xhs.open("GET", "/video-file/" + video);
+    xhs.responseType = "arraybuffer";
+    xhs.onload = (e) => {
+        let blob = new Blob([xhs.response]);
+        let url = URL.createObjectURL(blob);
+        let video = document.getElementById("video");
+        video.src = url;
+    };
+    xhs.send();
+}
+
 /* Subir archivos */
 function submit(button) {
-    let progress = document.getElementById("progress-upload");
+
     let data = new FormData();
 
     if (file.validity.valid && title.validity.valid && description.validity.valid) {
         button.disabled = true;
+        uploadButton = button;
         data.append("file", file.files[0]);
         data.append("title", title.value);
         data.append("description", description.value);
 
         let xhs = new XMLHttpRequest();
         xhs.open("POST", "/upload");
+        xhs.responseType = "json";
         xhs.upload.addEventListener("progress", (e) => {
             progress.ariaValueNow = e.loaded / e.total * 100;
             progress.style.width = e.loaded / e.total * 100 + "%";
         });
         xhs.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                let ext = String(xhs.response);
+                let data = xhs.response;
 
-                let groupButton = document.getElementById("group-button");
-                if (ext.match(/.mp4/g)) {
-                    groupButton.innerHTML = `<a href="/video/${xhs.response}" class="btn btn-success">Successful</a>`;
-                } else if (ext.match(/.jpg/g) || ext.match(/.png/g) || ext.match(/.jpeg/g) || ext.match(/.gif/g)) {
-                    groupButton.innerHTML = `<a href="/images/${xhs.response}" class="btn btn-success">Successful</a>`;
-                } else if (ext.match(/.mp3/g) || ext.match(/.acc/g)) {
-                    groupButton.innerHTML = `<a href="/sound/${xhs.response}" class="btn btn-success">Successful</a>`;
+                console.log(data);
+                
+                if (data.duration.length > 0) {
+                    groupButton.innerHTML = `<h3> tu video ${data.duration}</h3>
+                    <button class="btn btn-danger" onclick='closeUploadModal()'>OK</button>`;
                 }
-                openModal();
+
+                if (data.fileUrl.length > 0) {
+                    let ext = data.fileUrl.toString();
+                    if (ext.match(/.mp4/g)) {
+                        groupButton.innerHTML = `<a href="/video/${ext.replace(/.mp4/i,"")}" class="btn btn-success">Successful</a>`;
+                    } else if (ext.match(/.jpg/g) || ext.match(/.png/g) || ext.match(/.jpeg/g) || ext.match(/.gif/g)) {
+                        groupButton.innerHTML = `<a href="/images/${ext.replace(/.mp4/i,"")}" class="btn btn-success">Successful</a>`;
+                    } else if (ext.match(/.mp3/g) || ext.match(/.acc/g)) {
+                        groupButton.innerHTML = `<a href="/sound/${ext.replace(/.mp4/i,"")}" class="btn btn-success">Successful</a>`;
+                    }
+                }
+                openUploadModal();
             } else if (this.readyState == 4 && this.status != 200) {
                 console.log("facho");
             }
@@ -82,14 +111,21 @@ function submit(button) {
 // Get the modal
 var modal = document.getElementById("myModal");
 // When the user clicks on the button, open the modal
-function openModal() {
+function openUploadModal() {
     modal.style.display = "block";
 }
 
-function watchPreview(miniature) {
-    let modal = document.getElementById("video-modal");
-    modal.style.display = "block";
+function closeUploadModal() {
+    modal.style.display = "none";
+    uploadButton.disabled = false;
+    progress.ariaValueNow = 0;
+    progress.style.width = 0 + "%";
+    groupButton.innerHTML ="";
+}
 
+
+function watchPreview(element, miniature) {
+    element.nextElementSibling.style.display = "block";
     let xhs = new XMLHttpRequest();
     xhs.open("GET", "/watch/" + miniature);
     xhs.responseType = "arraybuffer";
@@ -101,9 +137,16 @@ function watchPreview(miniature) {
     xhs.send();
 }
 
-function closeModal() {
-    let modal = document.getElementById("video-modal");
+function closeModal(element) {
+
+    let video = element.nextElementSibling
+        .firstElementChild
+        .firstElementChild;
+
     video.pause();
-    video.src="";
-    modal.style.display = "none";
+    video.src = "";
+
+    element.parentNode
+        .parentNode
+        .style.display = "none";
 }

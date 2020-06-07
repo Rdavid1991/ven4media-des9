@@ -15,12 +15,15 @@ module.exports = app => {
 
 
     router.get('/videos', home.videos);
-    router.get('/watch/:video_id',url.video);
+    router.get('/video/:video_id', preview.video);
+    router.get('/watch/:video_id',url.videoModal);
+    router.get('/video-file/:video_id',url.videoPreview);
 
 
     router.get('/upload', home.upload);
     router.get('/images/:image_id', preview.index);
     router.get('/image-file/:image_id', url.image);
+    
 
     router.get('/img/preview/:image_id',url.preview);
     router.get('/video/miniature/:miniature_id',url.miniature );
