@@ -33,15 +33,20 @@ module.exports = {
 
 const saveImage = async (ext, imageTempPath, req) => {
 
-    const imageUrl = libs.randomName();
+    const imageUrl = libs.randomName(30);
     const images = await Image.find({ filename: imageUrl });
 
     if (images.length > 0) {
         saveImage();
     } else {
-        const targetPath = path.resolve(`src/public/upload/images/${imageUrl}${ext}`);
+        const targetPath = path.resolve(`src/upload/images/${imageUrl}${ext}`);
+
+        if (!fs.existsSync("src/upload/images/")) {
+            fs.mkdirSync("src/upload/images/");
+        }
 
         await fs.rename(imageTempPath, targetPath);
+
         const newImage = new Image({
             title: req.body.title,
             filename: imageUrl + ext,
@@ -49,7 +54,7 @@ const saveImage = async (ext, imageTempPath, req) => {
         });
         newImage.save();
 
-        return imageUrl;
+        return {fileUrl: `${imageUrl}${ext}`, duration: ""};
     }
 };
 
@@ -64,6 +69,11 @@ const saveVideo = async (ext, videoTempPath, req) => {
     } else {
 
         const targetPath = path.resolve(`src/upload/video/${videoUrl}${ext}`);
+
+        if (!fs.existsSync("src/upload/video/")) {
+            fs.mkdirSync("src/upload/video/");
+        }
+
         await fs.rename(videoTempPath, targetPath);
 
         Ffmpeg.setFfmpegPath("C:/Users/david/Desktop/bin/ffmpeg.exe");
@@ -107,13 +117,6 @@ const saveVideo = async (ext, videoTempPath, req) => {
 
         let data = await metaData(targetPath);
 
-        if (!fs.existsSync("src/upload/video/")) {
-            fs.mkdirSync("src/upload/video/");
-        }
-
-        console.log(typeof(data.min));
-        
-
         if (data.min < 5) {
             const newVideo = new Video({
                 title: req.body.title,
@@ -126,12 +129,13 @@ const saveVideo = async (ext, videoTempPath, req) => {
                 description: req.body.description,
             });
             newVideo.save();
-            return { videoUrl, dutation: null };
+            return { fileUrl :`${videoUrl}${ext}`, duration: "" };
         } else {
             setTimeout(()=>{
                 fs.unlink(targetPath);
+                fs.unlink(path.join(miniatureRoute, miniature));
             },5000);
-            return { videoUrl: null, dutation: "Exede los 5 minutos" };
+            return { fileUrl:'', duration: "exede los 5 minutos" };
         }
     }
 };
