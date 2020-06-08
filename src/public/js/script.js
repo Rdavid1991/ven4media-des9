@@ -83,9 +83,9 @@ function submit(button) {
                     if (ext.match(/.mp4/g)) {
                         groupButton.innerHTML = `<a href="/video/${ext.replace(/.mp4/i, "")}" class="btn btn-success">Successful</a>`;
                     } else if (ext.match(/.jpg/g) || ext.match(/.png/g) || ext.match(/.jpeg/g) || ext.match(/.gif/g)) {
-                        groupButton.innerHTML = `<a href="/images/${ext.replace(/.mp4/i, "")}" class="btn btn-success">Successful</a>`;
+                        groupButton.innerHTML = `<a href="/images/${ext}" class="btn btn-success">Successful</a>`;
                     } else if (ext.match(/.mp3/g) || ext.match(/.acc/g)) {
-                        groupButton.innerHTML = `<a href="/sound/${ext.replace(/.mp4/i, "")}" class="btn btn-success">Successful</a>`;
+                        groupButton.innerHTML = `<a href="/sound/${ext}" class="btn btn-success">Successful</a>`;
                     }
                 }
                 openUploadModal();
@@ -123,7 +123,7 @@ function closeUploadModal() {
     groupButton.innerHTML = "";
 }
 
-
+/* Preview del video en modal */
 function watchPreview(element, miniature) {
     element.nextElementSibling.style.display = "block";
     let xhs = new XMLHttpRequest();
@@ -132,13 +132,31 @@ function watchPreview(element, miniature) {
     xhs.onload = (e) => {
         let blob = new Blob([xhs.response]);
         let url = URL.createObjectURL(blob);
-        elemento = element
         let video = element.nextElementSibling
             .firstElementChild
             .lastElementChild
             .firstElementChild
             .firstElementChild;
         video.src = url;
+    };
+    xhs.send();
+}
+
+//* Preview de la imagen en modal */
+function previewImage(element, img) {
+    element.nextElementSibling.style.display = "block";
+    let xhs = new XMLHttpRequest();
+    xhs.open("GET", "/images/preview/" + img);
+    xhs.responseType = "arraybuffer";
+    xhs.onload = (e) => {
+        let blob = new Blob([xhs.response]);
+        let url = URL.createObjectURL(blob);
+        let img = element.nextElementSibling
+            .firstElementChild
+            .lastElementChild
+            .firstElementChild
+            .firstElementChild;
+        img.src = url;
     };
     xhs.send();
 }
@@ -150,6 +168,18 @@ function closeModal(e) {
 
     video.pause();
     video.src = "";
+
+    e.parentNode
+        .parentNode
+        .style.display = "none";
+}
+
+function closeImgModal(e) {
+    let img = e.nextElementSibling
+        .firstElementChild
+        .firstElementChild;
+
+        img.src = "";
 
     e.parentNode
         .parentNode
