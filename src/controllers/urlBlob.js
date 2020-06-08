@@ -1,13 +1,12 @@
 const path = require("path");
-const { Image, Video} = require('../models');
+const { Video} = require('../models');
 
 module.exports ={
     image: (req,res)=>{  
         res.sendFile(path.join(__dirname,`../upload/images/${req.params.image_id}`));
     },
-    preview:(req,res)=>{
-        res.sendFile(path.join(__dirname,`../upload/images/${req.params.image_id}`));
-    },
+
+
     miniature:(req,res)=>{
         res.sendFile(path.join(__dirname,`../upload/video-miniature/${req.params.miniature_id}`));
     },
