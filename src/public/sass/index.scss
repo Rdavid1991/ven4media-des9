@@ -1,0 +1,76 @@
+@import "sidebars","tools";
+
+*{
+  margin: 0;
+}
+
+body {
+    background: #ebebeb;
+    font-family: "Lato", sans-serif;
+}
+/* Main content */
+.main {
+  margin-top: 55px;
+  margin-left: 200px; /* Same as the width of the sidenav */
+  padding: 0px 10px;
+  z-index: -1;
+}
+
+/* Modal inicio */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    left: 0;
+    top: 0;
+    min-width: 100vw; /* Full width */
+    min-height: 100vh; /* Full height */
+    overflow: hidden; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .content-modal {
+    background-color: #fefefe;
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 65%; /* Could be more or less, depending on screen size */
+    overflow-y: hidden;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .video-modal{
+    width: 100%;
+  }
+/* modal fin */
+
+/* valid */
+.required-valid::after{
+  content: 'requerido';
+  font-size: 12px;
+  color: red;
+  position: absolute;
+}
+
+/* valid fin */
+
+.hover:hover{
+  cursor: pointer;
+  background-color: rgb(172, 172, 172)
+}
