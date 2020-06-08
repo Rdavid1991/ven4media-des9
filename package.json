@@ -6,7 +6,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "cross-env NODE_ENV=production node src/index",
-        "dev": "cross-env NODE_ENV=development nodemon -e js,css,hbs,json src/index"
+        "dev": "cross-env NODE_ENV=development nodemon -e js,css,hbs,json src/index",
+        "build-css": "sass --watch src/public/sass/index.scss src/public/css/style.css"
     },
     "keywords": [],
     "author": "",
@@ -25,7 +26,8 @@
         "moment": "^2.26.0",
         "mongoose": "^5.9.16",
         "morgan": "^1.10.0",
-        "multer": "^1.4.2"
+        "multer": "^1.4.2",
+        "sass": "^1.26.8"
     },
     "devDependencies": {
         "eslint": "^6.8.0",
