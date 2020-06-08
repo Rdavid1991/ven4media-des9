@@ -72,7 +72,7 @@ function submit(button) {
                 let data = xhs.response;
 
                 console.log(data);
-                
+
                 if (data.duration.length > 0) {
                     groupButton.innerHTML = `<h3> tu video ${data.duration}</h3>
                     <button class="btn btn-danger" onclick='closeUploadModal()'>OK</button>`;
@@ -81,11 +81,11 @@ function submit(button) {
                 if (data.fileUrl.length > 0) {
                     let ext = data.fileUrl.toString();
                     if (ext.match(/.mp4/g)) {
-                        groupButton.innerHTML = `<a href="/video/${ext.replace(/.mp4/i,"")}" class="btn btn-success">Successful</a>`;
+                        groupButton.innerHTML = `<a href="/video/${ext.replace(/.mp4/i, "")}" class="btn btn-success">Successful</a>`;
                     } else if (ext.match(/.jpg/g) || ext.match(/.png/g) || ext.match(/.jpeg/g) || ext.match(/.gif/g)) {
-                        groupButton.innerHTML = `<a href="/images/${ext.replace(/.mp4/i,"")}" class="btn btn-success">Successful</a>`;
+                        groupButton.innerHTML = `<a href="/images/${ext.replace(/.mp4/i, "")}" class="btn btn-success">Successful</a>`;
                     } else if (ext.match(/.mp3/g) || ext.match(/.acc/g)) {
-                        groupButton.innerHTML = `<a href="/sound/${ext.replace(/.mp4/i,"")}" class="btn btn-success">Successful</a>`;
+                        groupButton.innerHTML = `<a href="/sound/${ext.replace(/.mp4/i, "")}" class="btn btn-success">Successful</a>`;
                     }
                 }
                 openUploadModal();
@@ -120,7 +120,7 @@ function closeUploadModal() {
     uploadButton.disabled = false;
     progress.ariaValueNow = 0;
     progress.style.width = 0 + "%";
-    groupButton.innerHTML ="";
+    groupButton.innerHTML = "";
 }
 
 
@@ -132,21 +132,26 @@ function watchPreview(element, miniature) {
     xhs.onload = (e) => {
         let blob = new Blob([xhs.response]);
         let url = URL.createObjectURL(blob);
+        elemento = element
+        let video = element.nextElementSibling
+            .firstElementChild
+            .lastElementChild
+            .firstElementChild
+            .firstElementChild;
         video.src = url;
     };
     xhs.send();
 }
 
-function closeModal(element) {
-
-    let video = element.nextElementSibling
+function closeModal(e) {
+    let video = e.nextElementSibling
         .firstElementChild
         .firstElementChild;
 
     video.pause();
     video.src = "";
 
-    element.parentNode
+    e.parentNode
         .parentNode
         .style.display = "none";
 }
