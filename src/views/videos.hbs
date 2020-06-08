@@ -1,19 +1,26 @@
-{{#each videos}}
-<div id="preview" onclick="watchPreview(this,'{{miniature}}')">
-    <div class="row mt-3 hover p-1">
-        <div class="col-md-2">
-            <img src="http://localhost:4000/video/miniature/{{miniature}}.png" alt="" class="img-thumbnail"
-                style="width:400px;">
-        </div>
-        <div class="col-md-10">
-            <h4 class="font-weight-bold">{{title}}</h4>
-            <p class="text-truncate">{{description}}</p>
-            <div class="">
-                <p class="font-weight-bold">{{Height}}/{{width}}</p>
-                <p class="font-weight-bold">{{min}}:{{seg}}</p>
+<div class="card mt-2 w-100">
+    <div class="card-header bg-dark text-white fixed">
+        <h3> <i class="far fa-images"></i>Lista de videos</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            {{#each videos}}
+            <div class="col-md-3">
+                <div id="preview" onclick="watchPreview(this,'{{miniature}}')">
+                    <div class="card mb-3 pointer">
+                        <img src="http://localhost:4000/video/miniature/{{miniature}}.png" alt="" class="img-thumbnail card-img-top">
+                        <div class="card-body">
+                            <p class="card-title">
+                                <b>{{title}}</b>
+                            </p>
+                            <span class="time">{{min}}:{{seg}}</span>
+                            <p class="card-text">{{substring description}}</p>
+                        </div>
+                    </div>
+                </div>
+                {{>video-modal}}
             </div>
+            {{/each}}
         </div>
     </div>
 </div>
-{{>video-modal}}
-{{/each}}

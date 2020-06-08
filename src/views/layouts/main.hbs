@@ -7,20 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{!-- Bootstrap --}}
     <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     {{!-- Custom CSS --}}
     <link rel="stylesheet" href="/public/css/style.css">
+    
     <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
 
-    <title>ImgShare</title>
+    <title>Multimedia</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-dark">
-        <a href="/" class="navbar-brand"><img src="/public/images/imgshare-logo.png" alt="ImgShare"></a>
-        <a href="/upload">Subir archivo</a>
-    </nav>
+    {{>navbar}}
 
-    <div class="container-fluid p-4">
+    {{>right-sidebars}}
+
+    <div class="main">
         {{{ body }}}
     </div>
 
