@@ -3,6 +3,7 @@ const fs = require('fs-extra');
 
 const libs = require('../../helpers/libs');
 const { Image } = require('../../models');
+const {waterMark} = require('./water-mark');
 
 
 const saveImage = async (ext, imageTempPath, req) => {
@@ -21,14 +22,22 @@ const saveImage = async (ext, imageTempPath, req) => {
 
         await fs.rename(imageTempPath, targetPath);
 
-        const newImage = new Image({
-            title: req.body.title,
-            filename: imageUrl + ext,
-            description: req.body.description,
-        });
-        newImage.save();
+        let result = waterMark(`${imageUrl}${ext}`);
 
-        return { fileUrl: `${imageUrl}${ext}`, duration: "" };
+        if(result.stderr.length > 0 ){
+            fs.unlink(targetPath);
+            return { fileUrl: '', duration: "Fallo la subida de la imagen" };
+        }else{
+
+            const newImage = new Image({
+                title: req.body.title,
+                filename: imageUrl + ext,
+                description: req.body.description,
+            });
+            newImage.save();
+
+            return { fileUrl: `${imageUrl}${ext}`, duration: "" };
+        } 
     }
 };
 
