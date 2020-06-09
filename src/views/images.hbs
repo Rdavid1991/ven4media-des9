@@ -1,17 +1,17 @@
-<div class="card mt-2 w-100">
-    <div class="card-header bg-dark text-white">
-        <h3> <i class="far fa-images"></i>Lista de imagenes</h3>
-    </div>
-    <div class="card-body {{url}}">
-        <div class="row">
-            {{#each images}}
-            <div class="col-md-2">
-                <div onclick="previewImage(this, '{{filename}}')">
-                    <img src="http://localhost:4000/images/miniature/{{filename}}" alt="" class="w-10 h-10 img-fluid img-thumbnail">
+<div class="main">
+    <div class="card mt-2 w-100">
+        <div class="card-header bg-dark text-white">
+            <h3> <i class="far fa-images"></i>Lista de imagenes</h3>
+        </div>
+        <div class="card-body {{url}}">
+            <div class="row">
+                {{#each images}}
+                <div class="col-md-2" onclick="previewImage(this, '{{filename}}')">
+                    <img src="/public/upload/mark/{{filename}}" alt="" class="w-10 h-10 img-fluid img-thumbnail">
                 </div>
+                {{>image-modal}}
+                {{/each}}
             </div>
-            {{>image-modal}}
-            {{/each}}
         </div>
     </div>
 </div>

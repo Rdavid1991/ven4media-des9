@@ -19,13 +19,13 @@ module.exports = {
         if (image) {
             image.views = image.views + 1;
             await image.save();
-            res.sendFile(path.join(__dirname, `../upload/mark/${req.params.image_id}`));
+            res.sendFile(path.join(__dirname, `../public/upload/mark/${req.params.image_id}`));
         } else {
             res.redirect("/");
         }
     },
 
     imgMiniature:(req,res)=>{
-        res.sendFile(path.join(__dirname,`../upload/mark/${req.params.image_id}`));
+        res.sendFile(path.join(__dirname,`../public/upload/mark/${req.params.image_id}`));
     },
 };

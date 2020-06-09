@@ -1,26 +1,29 @@
-<div class="card mt-2 w-100">
-    <div class="card-header bg-dark text-white fixed">
-        <h3> <i class="far fa-images"></i>Lista de videos</h3>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            {{#each videos}}
-            <div class="col-md-3">
-                <div id="preview" onclick="watchPreview(this,'{{miniature}}')">
-                    <div class="card mb-3 pointer">
-                        <img src="http://localhost:4000/video/miniature/{{miniature}}.png" alt="" class="img-thumbnail card-img-top">
-                        <div class="card-body">
-                            <p class="card-title">
-                                <b>{{title}}</b>
-                            </p>
-                            <span class="time">{{min}}:{{seg}}</span>
-                            <p class="card-text">{{substring description}}</p>
+<div class="main">
+    <div class="card mt-2 w-100">
+        <div class="card-header bg-dark text-white fixed">
+            <h3> <i class="far fa-images"></i>Lista de videos</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                {{#each videos}}
+                <div class="col-md-3">
+                    <div id="preview" onclick="watchPreview(this,'{{miniature}}')">
+                        <div class="card mb-3 pointer">
+                            <img src="/public/upload/video-miniature/{{miniature}}.png" alt=""
+                                class="img-thumbnail card-img-top">
+                            <div class="card-body">
+                                <p class="card-title">
+                                    <b>{{title}}</b>
+                                </p>
+                                <span class="time">{{min}}:{{seg}}</span>
+                                <p class="card-text">{{substring description}}</p>
+                            </div>
                         </div>
                     </div>
+                    {{>video-modal}}
                 </div>
-                {{>video-modal}}
+                {{/each}}
             </div>
-            {{/each}}
         </div>
     </div>
 </div>

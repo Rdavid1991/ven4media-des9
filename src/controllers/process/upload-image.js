@@ -14,17 +14,17 @@ const saveImage = async (ext, imageTempPath, req) => {
     if (images.length > 0) {
         saveImage();
     } else {
-        const targetPath = path.resolve(`src/upload/images/${imageUrl}${ext}`);
+        const targetPath = path.resolve(`src/public/upload/images/${imageUrl}${ext}`);
 
-        if (!fs.existsSync("src/upload/images/")) {
-            fs.mkdirSync("src/upload/images/");
+        if (!fs.existsSync("src/public/upload/images/")) {
+            fs.mkdirSync("src/public/upload/images/");
         }
 
         await fs.rename(imageTempPath, targetPath);
 
         let result = waterMark(`${imageUrl}${ext}`);
 
-        if(result.stderr.length > 0 ){
+        if(result){
             fs.unlink(targetPath);
             return { fileUrl: '', duration: "Fallo la subida de la imagen" };
         }else{

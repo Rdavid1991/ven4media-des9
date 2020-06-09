@@ -1,33 +1,49 @@
 const fs = require("fs-extra");
-const { spawnSync } = require('child_process');
+const os = require("os")
+const { execSync } = require('child_process');
 
 //.\img\magick composite -gravity center -resize 1440x1440 -dissolve 45% .\0i0gnli.png '.\Fotos 148.jpg' 'Marcada.jpg'
 module.exports = {
 
     waterMark: (img) => {
 
-        if (!fs.existsSync("src/upload/mark/")) {
-            fs.mkdirSync("src/upload/mark/");
+        if (!fs.existsSync("src/public/upload/mark/")) {
+            fs.mkdirSync("src/public/upload/mark/");
         }
-        let magick = "./library/img/magick";
+
+        let magick;
+
+        if (process.env.NODE_ENV === 'production') {
+            magick = "magick";
+        } else {
+            magick = "./library/img/magick";
+        }
+
+        let plataforma = (os.type() === 'Windows_NT') ? 'powershell.exe' : '';
+
         let waterMark = "./src/assets/img/watermark.png";
-        let originalImg = `./src/upload/images/${img}`;
-        let secureImg = `./src/upload/mark/${img}`;
+        let originalImg = `./src/public/upload/images/${img}`;
+        let secureImg = `./src/public/upload/mark/${img}`;
 
-        let cmdWidth = `${magick} identify -format %w ${originalImg}`;
-        let imgWidth = spawnSync( "powershell.exe",[cmdWidth], { encoding: 'utf8', maxBuffer: 50 * 1024 * 1024 });
-        console.log(imgWidth);
+        try {
+            let cmdWidth = `${magick} identify -format %w ${originalImg}`;
+            let imgWidth = execSync(`${plataforma} ${cmdWidth}`, { encoding: 'utf8', maxBuffer: 50 * 1024 * 1024 });
+            console.log(imgWidth);
 
-        let cmdHeigth = `${magick} identify -format %h ${originalImg}`;
-        let imgHeigth = spawnSync( "powershell.exe",[cmdHeigth], { encoding: 'utf8', maxBuffer: 50 * 1024 * 1024 });
-        console.log(imgHeigth);
+            let cmdHeigth = `${magick} identify -format %h ${originalImg}`;
+            let imgHeigth = execSync(`${plataforma} ${cmdHeigth}`, { encoding: 'utf8', maxBuffer: 50 * 1024 * 1024 });
+            console.log(imgHeigth);
 
-        let cmd = `${magick} composite -gravity center -resize ${imgWidth.stdout}x${imgHeigth.stdout} -dissolve 30% ${waterMark} ${originalImg} ${secureImg}`;
+            let cmd = `${magick} composite -gravity center -resize ${imgWidth}x${imgHeigth} -dissolve 60% ${waterMark} ${originalImg} ${secureImg}`;
+            let result = execSync(`${plataforma} ${cmd}`, { encoding: 'utf8', maxBuffer: 50 * 1024 * 1024 });
+            console.log(result);
 
-        //return spawnSync( "powershell.exe",["ls"], { encoding: 'utf8', maxBuffer: 50 * 1024 * 1024 });
-        let result = spawnSync( "powershell.exe",[cmd], { encoding: 'utf8', maxBuffer: 50 * 1024 * 1024 });
-        console.log(result);
-        return result;
+            return false;
+        } catch (error) {
+            console.log(error);
+            return true;
+        }
+
     }
 };
 

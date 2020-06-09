@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    #environment:
+    # MONGO_INITDB_ROOT_USERNAME: admin
+    # MONGO_INITDB_ROOT_PASSWORD: 5737b3f8
+    ports: 
+      - "27017:27017" 
+    #volumes: 
+    # - "/data/db:/data/db" 
+
+  app:
+    container_name: appnode
+    image: multimedia-market
+    build: 
+        context: .
+    ports:
+        - "3000:4000"
+    #volumes: 
+    # - "C:/volumes/app:/home/app/src/public/upload"
+    depends_on:
+        - mongo
