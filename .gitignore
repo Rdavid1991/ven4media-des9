@@ -1,5 +1,5 @@
 /node_modules
-/src/upload
-.env
+/src/public/upload
+/bin
 .vscode
 /library

@@ -1,5 +1,5 @@
 const fs = require("fs-extra");
-const os = require("os")
+const os = require("os");
 const { execSync } = require('child_process');
 
 //.\img\magick composite -gravity center -resize 1440x1440 -dissolve 45% .\0i0gnli.png '.\Fotos 148.jpg' 'Marcada.jpg'
