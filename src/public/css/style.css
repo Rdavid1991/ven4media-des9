@@ -131,12 +131,10 @@ body {
 
 /* modal fin */
 /* valid */
-.required-valid::after {
-  content: "requerido";
-  font-size: 12px;
-  color: red;
-  position: absolute;
-}
+
+video::-internal-media-controls-download-button {display:none}
+video::-webkit-media-controls-enclosure {overflow:hidden}
+video::-webkit-media-controls-panel {width: calc(100% + 18px); /* Ajustar los pixeles segun se necesite */}
 
 /* valid fin */
 .hover:hover {
