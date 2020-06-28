@@ -16,10 +16,7 @@ module.exports = app => {
     /* Rutas de imagenes */
     router.get('/images', home.images);//Lista todas las imagenes
     router.get('/images/:image_id', uploaded.img); //muestra los archivos reciensubidos del usuario
-    router.get('/images/preview/:image_id', preview.img);//Preview de las imagenes listadas en un modal
-    router.get('/images/miniature/:image_id', preview.imgMiniature);//Muestra imagenes con marca de agua
-    router.get('/image-file/:image_id', blob.image);
-
+    router.post('/images/:image_id/like', home.imgLike);
 
     /* Rutas de video */
     router.get('/videos', home.videos);
@@ -27,16 +24,13 @@ module.exports = app => {
     router.get('/watch/:video_id', blob.videoModal);
     router.get('/video-file/:video_id', blob.videoPreview);
 
+    router.post('/videos/:video_id/like', home.vidLike);
+
 
     router.get('/upload', home.upload);
-
-
-
-    router.get('/video/miniature/:miniature_id', blob.miniature);
-
-
     router.post('/upload', create.data);
 
+    router.get('/video/miniature/:miniature_id', blob.miniature);
 
     app.use(router);
 };

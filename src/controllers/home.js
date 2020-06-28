@@ -1,4 +1,5 @@
 const { Image, Video } = require('../models');
+const like = require('./process/like');
 
 module.exports = {
 
@@ -28,5 +29,13 @@ module.exports = {
 
     upload: async (req, res) => {
         res.render('upload');
+    },
+
+    imgLike: async (req, res) => {
+        res.json({ like: await like(Image, req.params.image_id) });
+    },
+
+    vidLike: async (req, res) => {
+        res.json({ like: await like(Video, req.params.video_id) });
     }
 };

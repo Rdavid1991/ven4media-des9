@@ -9,9 +9,11 @@ const { Video } = require('../../models');
 
 const saveVideo = async (ext, videoTempPath, req) => {
 
+    //random names
     const videoUrl = libs.randomName(30);
     const miniature = libs.randomName(6);
-    const video = await Video.find({ filename: videoUrl });
+
+    const video = await Video.find({$or:[{ filename: videoUrl},{miniature }]});
 
     if (video.length > 0) {
         saveVideo();
@@ -33,19 +35,20 @@ const saveVideo = async (ext, videoTempPath, req) => {
             Ffmpeg.setFfprobePath("bin/ffprobe");
         }
     
-        const miniatureRoute = 'src/public/upload/video-miniature';
+        const miniatureRoute = 'src/public/upload/video-miniature/';
 
         if (!fs.existsSync(miniatureRoute)) {
             fs.mkdirSync(miniatureRoute);
         }
 
         const ffmpeg = Ffmpeg;
+        //let count = Math.floor(Math.random() * 7) + 1
         ffmpeg(targetPath)
             .screenshots({
-                count: 1,
+                count:1 ,
                 filename: miniature,
                 folder: miniatureRoute,
-                size: '320x240'
+                size: '352x240'
             });
 
         // eslint-disable-next-line no-unused-vars
@@ -88,7 +91,7 @@ const saveVideo = async (ext, videoTempPath, req) => {
         } else {
             setTimeout(() => {
                 fs.unlink(targetPath);
-                fs.unlink(path.join(miniatureRoute, miniature));
+                fs.unlink(path.join(miniatureRoute, miniature + ".png"));
             }, 5000);
             return { fileUrl: '', duration: "exede los 5 minutos" };
         }
