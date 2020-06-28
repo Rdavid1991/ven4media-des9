@@ -1,6 +1,4 @@
-const path = require('path');
-
-const { Image, Video} = require('../models');
+const {  Video} = require('../models');
 
 module.exports = {
     video: async(req, res) => {
@@ -12,20 +10,5 @@ module.exports = {
         } else {
             res.redirect("/");
         }
-    },
-
-    img:async(req, res) => {
-        const image = await Image.findOne({ filename: { $regex: String(req.params.image_id) } });
-        if (image) {
-            image.views = image.views + 1;
-            await image.save();
-            res.sendFile(path.join(__dirname, `../public/upload/mark/${req.params.image_id}`));
-        } else {
-            res.redirect("/");
-        }
-    },
-
-    imgMiniature:(req,res)=>{
-        res.sendFile(path.join(__dirname,`../public/upload/mark/${req.params.image_id}`));
     },
 };

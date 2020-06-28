@@ -9,11 +9,10 @@ module.exports = {
         const fileTempPath = req.file.path;
         const ext = path.extname(req.file.originalname).toLowerCase();
 
-        if (ext === '.png' || ext === '.jpg' || ext === '.jpeg' || ext === '.gif') {
+        if (ext === '.png' || ext === '.jpg' || ext === '.jpeg') {
             let imageUrl = await saveImage(ext, fileTempPath, req);
             res.send(imageUrl);
         } else if (ext === '.mp4') {
-
             let videoUrl = await saveVideo(ext, fileTempPath, req);
             res.send(videoUrl);
 

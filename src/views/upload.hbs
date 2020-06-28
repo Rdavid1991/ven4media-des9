@@ -1,4 +1,4 @@
-<div class="main">
+<div class="container-fluid">
     <div class="row d-flex justify-content-center">
         <div class="card w-75">
             <div class="card-header bg-dark">
@@ -8,27 +8,31 @@
                 </h3>
             </div>
             <div class="card-body">
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="custom-file">
-                            <input type="file" name="file" id="file" class="custom-file-input" id="inputGroup"
-                                aria-describedby="inputGroupFileAddon" required>
-                            <label class="custom-file-label" for="inputGroupFile">Chosse file</label>
+
+                <form id="upload-form">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" name="file" id="file" class="custom-file-input" id="inputGroup"
+                                    aria-describedby="inputGroupFileAddon" required>
+                                <label class="custom-file-label" for="inputGroupFile">Chosse file</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group title-valid">
-                    <input type="text" id="title" class="form-control" placeholder="Title for the image" required>
-                </div>
-                <div class="form-group">
-                    <textarea id="description" id="" rows="2" class="form-control"
-                        placeholder="Description for the image" required></textarea>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-success" onclick="submit(this)">
-                        <i <i class="fa fa-upload"></i>Upload Image
-                    </button>
-                </div>
+                    <div class="form-group title-valid">
+                        <input type="text" id="title" class="form-control" placeholder="Title for the image" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="description" id="" rows="2" class="form-control"
+                            placeholder="Description for the image" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">
+                            <i <i class="fa fa-upload"></i>Upload Image
+                        </button>
+                    </div>
+                </form>
+
             </div>
             <div class="progress">
                 <div id="progress-upload" class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%"
@@ -38,3 +42,5 @@
     </div>
     {{>upload-modal}}
 </div>
+
+<script src="/public/js/uploadScript.js"></script>

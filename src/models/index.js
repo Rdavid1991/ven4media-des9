@@ -1,4 +1,5 @@
 module.exports = {
     Image: require('./image'),
-    Video: require('./video')
+    Video: require('./video'),
+    Audio: require('./audio')
 };
