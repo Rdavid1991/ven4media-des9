@@ -1,4 +1,4 @@
-@import "sidebars", "tools";
+@import "sidebars", "tools", "audio";
 
 * {
   margin: 0;
@@ -7,7 +7,7 @@
 body {
   background: #ebebeb;
   font-family: "Lato", sans-serif;
-
+  user-select: none;
 }
 /* Main content */
 .main {
@@ -106,7 +106,7 @@ body {
 }
 
 .like-icon {
-  background-image: url("../images/thumbs-up-solid.svg");
+  background-image: url("../img/thumbs-up-solid.svg");
   background-repeat: no-repeat;
   width: 2rem;
   height: 2rem;
@@ -115,7 +115,7 @@ body {
   filter: invert(1);
 }
 
-.like-count{
+.like-count {
   top: 1.5rem;
   right: 1rem;
   font-weight: bold;

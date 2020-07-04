@@ -7,7 +7,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "cross-env NODE_ENV=production node src/index",
         "dev": "cross-env NODE_ENV=development nodemon -e js,css,hbs,json src/index",
-        "build-css": "sass --watch src/public/sass/index.scss src/public/css/style.css"
+        "build-css": "sass --watch src/public/assets/sass/index.scss src/public/assets/css/style.css"
     },
     "keywords": [],
     "author": "",

@@ -1,0 +1,32 @@
+<div class="container-fluid">
+    <div class="card mt-2 w-100">
+        <div id="selection" class="card-body">
+            <div class="row">
+                {{#each audio}}
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body p-1">
+                            <div class="d-flex">
+                                <div class="position-relative w-50">
+                                    <img src="/public/assets/img/sound.png" class="img-thumbnail" alt="" srcset="">
+                                    <div data="{{filename}}" class="play position-absolute"></div>
+                                </div>
+                                
+                                <div class="d-block">
+                                    <h5 class="ml-1">{{title}}</h5>
+                                    <span class="ml-1">{{description}}</span>
+
+                                </div>
+                            </div>
+                            <input type="range" value="0" min="0" max="100" class="form-control-range" id="{{filename}}">
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <audio id="audio" src=""></audio>
+</div>
+
+<script src="/public/js/audioScript.js"></script>

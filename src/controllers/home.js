@@ -1,4 +1,4 @@
-const { Image, Video } = require('../models');
+const { Image, Video, Audio } = require('../models');
 const like = require('./process/like');
 
 module.exports = {
@@ -17,7 +17,10 @@ module.exports = {
     },
 
     sounds: async (req, res) => {
-        res.render('sounds');
+        const audio = await Audio.find({});
+        let viewModel = { audio: [] };
+        viewModel.audio = audio;
+        res.render('sounds', viewModel);
     },
 
     videos: async (req, res) => {
