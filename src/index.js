@@ -5,6 +5,7 @@ const config = require('./server/config');
 const app = config(express());
 
 require('./database');
+require('./controllers/local-auth');
 require('colors');
 
 app.listen(app.get('port'), () => {

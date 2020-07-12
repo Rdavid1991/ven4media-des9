@@ -3,6 +3,9 @@ const exphbs = require('express-handlebars');
 const morgan = require('morgan');
 const multer = require('multer');
 const express = require('express');
+const session = require('express-session');
+const passport = require('passport');
+const flash = require('connect-flash');
 const errorhandler = require('errorhandler');
 
 //Para solucionar un error temporalmente
@@ -31,6 +34,23 @@ module.exports = app => {
     app.use(express.urlencoded({ extended: false }));
     app.use(express.json());
     app.use('/public', express.static(path.join(__dirname, '../public')));
+
+
+    //session
+    app.use(session({
+        secret: 'mysecretsession',
+        resave: false,
+        saveUninitialized: false
+    }));
+    app.use(flash());
+    app.use(passport.initialize());
+    app.use(passport.session());
+    app.use((req, res, next) => {
+        app.locals.signupMessage = req.flash('signupMessage');
+        app.locals.signinMessage = req.flash('signinMessage');
+        app.locals.user = req.user;
+        next();
+    });
 
     //routes
     routes(app);

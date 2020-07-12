@@ -12,7 +12,8 @@ const VideoSchema = new Schema({
     width:{type: Number},
     Height:{type: Number},
     miniature:{type:String},
-    //username: { type: String },
+    userid: { type: String },
+    status:{type: Boolean,default:false},
     views: { type: Number, default: 0 },
     likes: { type: Number, default: 0 },
     timestamp: { type: Date, default: Date.now }

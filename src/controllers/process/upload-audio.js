@@ -26,6 +26,7 @@ const saveAudio = async (ext, audioTempPath, req) => {
             title: req.body.title,
             filename: audioUrl + ext,
             description: req.body.description,
+            userid:req.user._id
         });
 
         await newAudio.save();

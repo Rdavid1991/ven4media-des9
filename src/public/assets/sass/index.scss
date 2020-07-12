@@ -112,7 +112,14 @@ body {
   height: 2rem;
   top: 1rem;
   right: 3rem;
+}
+
+.unlike{
   filter: invert(1);
+}
+
+.liked{
+  filter: invert(50%) sepia(40%) saturate(3329%) hue-rotate(180deg) brightness(100%) contrast(70%);
 }
 
 .like-count {

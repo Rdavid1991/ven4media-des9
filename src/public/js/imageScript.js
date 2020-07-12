@@ -35,6 +35,14 @@ function setLike(element) {
     xhs.open("POST", "/images/" + element.getAttribute("data") + "/like");
     xhs.onload = () => {
         let response = JSON.parse(xhs.response);
+
+        console.log(response);
+        if (response.status) {
+            element.classList.replace('unlike','liked');
+        }else{
+            element.classList.replace('liked','unlike');
+        }
+
         element.nextElementSibling.innerText = response.like;
     };
     xhs.send();

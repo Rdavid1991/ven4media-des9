@@ -3,9 +3,28 @@
   <a class="nav-link" href="/images">Imagenes</a>
   <a class="nav-link" href="/sounds">Audios</a>
   <a class="nav-link" href="/videos">Videos</a>
+
+  {{#if user}}
   <a class="nav-link" href="/upload" class="nav-link">Subir archivo</a>
-  <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  </form>
+  {{else}}
+  <div class="d-flex">
+    <a href="/signup" class="nav-link">Registrar</a>
+    <a href="/signin" class="nav-link">Conectar</a>
+  </div>
+  {{/if}}
+
+  {{#if user}}
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      Dropdown button
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="/profile/images">Mis imagenes</a>
+      <a class="dropdown-item" href="/profile/videos">Mis videos</a>
+      <a class="dropdown-item" href="/profile/audios">Something else here</a>
+      <a class="dropdown-item" href="/logout">Logout</a>
+    </div>
+  </div>
+  {{/if}}
 </nav>

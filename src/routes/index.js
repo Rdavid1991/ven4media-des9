@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const auth = require('../controllers/auth');
+
 const home = require('../controllers/home');
 const create = require('../controllers/create');
 const preview = require('../controllers/preview');
@@ -9,6 +11,18 @@ const uploaded = require("../controllers/uploaded");
 
 
 module.exports = app => {
+
+    
+    router.get('/signup', auth.signup);
+    router.post('/signup', auth.signupCreate);
+
+    router.get('/signin', auth.signin);
+    router.post('/signin', auth.signinLogin);
+
+    router.get('/profile', isAuthenticate, auth.profile);
+    router.get('/profile/images', isAuthenticate, auth.images);
+
+    router.get('/*logout', auth.logout);
 
     router.get('/', home.home);
     router.get('/sounds', home.sounds);
@@ -27,11 +41,19 @@ module.exports = app => {
     router.post('/videos/:video_id/like', home.vidLike);
 
 
-    router.get('/upload', home.upload);
-    router.post('/upload', create.data);
+    router.get('/upload',isAuthenticate, home.upload);
+    router.post('/upload',isAuthenticate, create.data);
 
     router.get('/video/miniature/:miniature_id', blob.miniature);
+
 
     app.use(router);
 };
 
+
+function isAuthenticate(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/');
+}

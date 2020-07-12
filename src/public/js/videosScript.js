@@ -40,6 +40,12 @@ function setLike(element) {
     xhs.open("POST", "/videos/" + element.getAttribute("data") + "/like");
     xhs.onload = (e) => {
         let response = JSON.parse(xhs.response);
+
+        if (response.status) {
+            element.classList.replace('unlike', 'liked');
+        } else {
+            element.classList.replace('liked', 'unlike');
+        }
         element.nextElementSibling.innerText = response.like;
     };
     xhs.send();

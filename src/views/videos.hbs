@@ -16,7 +16,15 @@
                             <span class="time">{{min}}:{{seg}}</span>
                             <h5 class="position-absolute info-text text-truncate info-hover" style="max-width: 50%;">
                                 {{title}}</h5>
-                            <div data="{{_id}}" name="like" class="position-absolute like-icon info-hover"></div>
+                            {{#if ../user}}
+                                {{#if status}}
+                                <div data="{{_id}}" name="like" class="position-absolute like-icon liked info-hover"></div>
+                                {{else}}
+                                <div data="{{_id}}" name="like" class="position-absolute like-icon unlike info-hover"></div>
+                                {{/if}}
+                            {{else}}
+                            <div class="position-absolute like-icon unlike info-hover"></div>
+                            {{/if}}
                             <div class="position-absolute like-count info-hover">{{likes}}</div>
                         </div>
                     </div>

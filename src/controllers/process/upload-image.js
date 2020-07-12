@@ -32,6 +32,7 @@ const saveImage = async (ext, imageTempPath, req) => {
                 title: req.body.title,
                 filename: imageUrl + ext,
                 description: req.body.description,
+                userid: req.user._id
             });
             newImage.save();
 

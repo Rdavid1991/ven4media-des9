@@ -1,5 +1,4 @@
-const { Image, Video, Audio } = require('../models');
-const like = require('./process/like');
+const { Image, Video, Audio, UserLike } = require('../models');
 
 module.exports = {
 
@@ -10,7 +9,25 @@ module.exports = {
 
     /* Mostrar lista de imagenes */
     images: async (req, res) => {
+ 
         const images = await Image.find({});
+
+        if (req.user) {
+            const like = await UserLike.find({ user: req.user._id });
+
+            for (let i = 0; i < images.length; i++) {
+                for (let j = 0; j < like.length; j++) {
+    
+                    if (String(images[i]._id) === String(like[j].imgId)) {
+                        console.log('funciona');
+                        images[i].status = like[j].status;
+                    }
+                }
+            }
+        }
+
+        console.log(images);
+
         let viewModel = { images: [] };
         viewModel.images = images;
         res.render('images', viewModel);
@@ -18,6 +35,21 @@ module.exports = {
 
     sounds: async (req, res) => {
         const audio = await Audio.find({});
+
+        if (req.user) {
+            const like = await UserLike.find({ user: req.user._id });
+
+            for (let i = 0; i < audio.length; i++) {
+                for (let j = 0; j < like.length; j++) {
+    
+                    if (String(audio[i]._id) === String(like[j].imgId)) {
+                        console.log('funciona');
+                        audio[i].status = like[j].status;
+                    }
+                }
+            }
+        }
+
         let viewModel = { audio: [] };
         viewModel.audio = audio;
         res.render('sounds', viewModel);
@@ -25,6 +57,21 @@ module.exports = {
 
     videos: async (req, res) => {
         const videos = await Video.find({});
+
+        if (req.user) {
+            const like = await UserLike.find({ user: req.user._id });
+
+            for (let i = 0; i < videos.length; i++) {
+                for (let j = 0; j < like.length; j++) {
+    
+                    if (String(videos[i]._id) === String(like[j].imgId)) {
+                        console.log('funciona');
+                        videos[i].status = like[j].status;
+                    }
+                }
+            }
+        }
+
         let viewModel = { videos: [] };
         viewModel.videos = videos;
         res.render('videos', viewModel);
@@ -35,10 +82,73 @@ module.exports = {
     },
 
     imgLike: async (req, res) => {
-        res.json({ like: await like(Image, req.params.image_id) });
+
+        const img = await Image.findOne({ _id: req.params.image_id });
+        const user = await UserLike.findOne({ user: req.user._id, imgId: String(img._id) });
+
+        if (user) {
+            if (img) {
+                if (user.status === true) {
+                    img.likes = img.likes - 1;
+                    user.status = false;
+                } else if (user.status === false) {
+                    img.likes = img.likes + 1;
+                    user.status = true;
+                }
+            } else {
+                res.status(500).json({ error: 'internal error' });
+            }
+            await user.save();
+            await img.save();
+            res.json({ like: img.likes, status: user.status });
+        } else {
+            const newuser = new UserLike({
+                imgId: img._id,
+                user: req.user._id,
+                status: true,
+            });
+            img.likes = img.likes + 1;
+            await img.save();
+            await newuser.save();
+            res.json({ like: img.likes, status: newuser.status });
+        }
     },
 
     vidLike: async (req, res) => {
-        res.json({ like: await like(Video, req.params.video_id) });
+        let user;
+        const vid = await Video.findOne({ _id: req.params.video_id });
+        if (vid) {
+            user = await UserLike.findOne({ user: req.user._id, imgId: String(vid._id)});
+        }else{
+            user = await UserLike.findOne({ user: req.user._id});
+        }
+        
+
+        if (user) {
+            if (vid) {
+                if (user.status === true) {
+                    vid.likes = vid.likes - 1;
+                    user.status = false;
+                } else if (user.status === false) {
+                    vid.likes = vid.likes + 1;
+                    user.status = true;
+                }
+            } else {
+                res.status(500).json({ error: 'internal error' });
+            }
+            await user.save();
+            await vid.save();
+            res.json({ like: vid.likes, status: user.status });
+        } else {
+            const newuser = new UserLike({
+                imgId: vid._id,
+                user: req.user._id,
+                status: true,
+            });
+            vid.likes = vid.likes + 1;
+            await vid.save();
+            await newuser.save();
+            res.json({ like: vid.likes, status: newuser.status });
+        }
     }
 };

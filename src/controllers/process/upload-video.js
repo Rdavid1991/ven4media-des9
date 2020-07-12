@@ -85,6 +85,7 @@ const saveVideo = async (ext, videoTempPath, req) => {
                 Height: data.heigth,
                 miniature: miniature,
                 description: req.body.description,
+                userid:req.user._id
             });
             newVideo.save();
             return { fileUrl: `${videoUrl}${ext}`, duration: "" };
