@@ -1,4 +1,5 @@
-var modal = document.getElementById("myModal");
+document.getElementById('active-upload').style = 'background-color :#eb6468!important; border-radius:10px 10px 0 0; color:white!important;';
+let modal = document.getElementById("myModal");
 let file = document.getElementById("file");
 let title = document.getElementById("title");
 let description = document.getElementById("description");
@@ -41,11 +42,11 @@ uploadFileForm.addEventListener("submit", (e) => {
             if (data.fileUrl.length > 0) {
                 let ext = data.fileUrl.toString();
                 if (ext.match(/.mp4/g)) {
-                    groupButton.innerHTML = `<a href="/video/${ext.replace(/.mp4/i, "")}" class="btn btn-success">Successful</a>`;
+                    groupButton.innerHTML = `<a href="/profile/video" class="btn btn-success">Successful</a>`;
                 } else if (ext.match(/.jpg/g) || ext.match(/.png/g) || ext.match(/.jpeg/g) || ext.match(/.gif/g)) {
-                    groupButton.innerHTML = `<a href="/images/${ext}" class="btn btn-success">Successful</a>`;
+                    groupButton.innerHTML = `<a href="/profile/images" class="btn btn-success">Successful</a>`;
                 } else if (ext.match(/.mp3/g) || ext.match(/.acc/g)) {
-                    groupButton.innerHTML = `<a href="/sound/${ext}" class="btn btn-success">Successful</a>`;
+                    groupButton.innerHTML = `<a href="/profile/sound" class="btn btn-success">Successful</a>`;
                 }
             }
             openUploadModal();

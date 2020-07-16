@@ -1,10 +1,9 @@
 const passport = require('passport');
 
-const {Image, User} = require('../models');
-const { image } = require('./urlBlob');
+const {Image, Video, Audio} = require('../models');
 
 module.exports = {
-    signup: (req, res, next) => {
+    signup: (req, res) => {
         res.render('signup');
     },
 
@@ -14,7 +13,7 @@ module.exports = {
         passReqToCallback: true
     }),
 
-    signin: (req, res, next) => {
+    signin: (req, res ) => {
         res.render('signin');
     },
 
@@ -24,18 +23,32 @@ module.exports = {
         passReqToCallback: true
     }),
 
-    profile: (req, res, next) => {
+    profile: (req, res) => {
         res.render('profile');
     },
 
     images: async(req,res)=>{
  
-        const images = await Image.find({userid:req.user._id});
+        const images = await Image.find({userid:req.user._id}).sort({timestamp:'desc'});
 
         res.render('profile', {images, image:true});
     },
 
-    logout: (req, res, next) => {
+    video: async(req,res)=>{
+ 
+        const videos = await Video.find({userid:req.user._id}).sort({timestamp:'desc'});
+
+        res.render('profile', {videos, video:true});
+    },
+
+    sound: async(req,res)=>{
+ 
+        const audios = await Audio.find({userid:req.user._id}).sort({timestamp:'desc'});
+
+        res.render('profile', {audios, audio:true});
+    },
+
+    logout: (req, res ) => {
         req.logout();
         res.redirect('/');
     },

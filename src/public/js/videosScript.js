@@ -1,4 +1,7 @@
+document.getElementById('active-video').style = 'background-color :#eb6468!important; border-radius:10px 10px 0 0; color:white!important;';
 const selection = document.getElementById('video-selection');
+const videoModal = document.getElementById('video-modal');
+const videoPreview = document.getElementById('video-preview');
 
 selection.addEventListener('click', (e) => {
     let element = e.target;
@@ -11,26 +14,18 @@ selection.addEventListener('click', (e) => {
 });
 
 function previewVideo(element) {
-    element
-        .parentNode
-        .parentNode
-        .nextElementSibling
-        .style.display = "block";
+    videoModal.style.display = "block";
+
     let xhs = new XMLHttpRequest();
     xhs.open("GET", "/watch/" + element.getAttribute("data"));
     xhs.responseType = "arraybuffer";
     xhs.onload = (e) => {
         let blob = new Blob([xhs.response]);
         let url = URL.createObjectURL(blob);
-        let video = element
-            .parentNode
-            .parentNode
-            .nextElementSibling
-            .firstElementChild
-            .lastElementChild
-            .firstElementChild
-            .firstElementChild;
-        video.src = url;
+
+        console.log(url);
+
+        videoPreview.src = url;
     };
     xhs.send();
 }
@@ -52,14 +47,9 @@ function setLike(element) {
 }
 
 function closeModal(e) {
-    let video = e.nextElementSibling
-        .firstElementChild
-        .firstElementChild;
+   
+    videoPreview.pause();
+    videoPreview.src = "";
 
-    video.pause();
-    video.src = "";
-
-    e.parentNode
-        .parentNode
-        .style.display = "none";
+    videoModal.style.display = "none";
 }

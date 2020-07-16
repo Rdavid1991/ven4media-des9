@@ -1,18 +1,15 @@
-<div class="modal">
+<div id="image-modal" class="modal">
     <!-- Modal content -->
     <div class="content-modal">
         <div id="close" class="close" onclick="closeImgModal(this)">&times;</div>
         <div class="row ">
             <div class="col-10 text-center">
-                <img id="preview-image-modal" class="img-thumbnail" style="height: -webkit-fill-available;" src=""></img>
+                <img id="image-preview" class="img-thumbnail" style="height: -webkit-fill-available;" src=""></img>
             </div>
             <div class="col-2 mt-5">
                 <div class="form-group">
                     <button class="btn btn-success">Agregar a carrito</button>
                 </div>
-
-                {{!--<p class="font-weight-bold">Resolicion {{Height}}/{{width}}</p>
-                <p class="font-weight-bold">Duracion {{min}}:{{seg}}</p> --}}
             </div>
         </div>
     </div>

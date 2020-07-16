@@ -1,30 +1,60 @@
-<nav class="navbar navbar-light bg-light justify-content-between position-sticky" style="top: 0; z-index: 10239;">
-  <a class="navbar-brand">Navbar</a>
-  <a class="nav-link" href="/images">Imagenes</a>
-  <a class="nav-link" href="/sounds">Audios</a>
-  <a class="nav-link" href="/videos">Videos</a>
+<nav class="position-fixed bg-light min-vw-100 pr-3 pl-3" style="top: 0; z-index: 2;">
 
-  {{#if user}}
-  <a class="nav-link" href="/upload" class="nav-link">Subir archivo</a>
-  {{else}}
-  <div class="d-flex">
-    <a href="/signup" class="nav-link">Registrar</a>
-    <a href="/signin" class="nav-link">Conectar</a>
-  </div>
-  {{/if}}
+  <div class="row">
+    <div class="col-2 text-center text-justify"> <a class="">Ven4<br>Media</a></div>
+    <div class="col-10">
 
-  {{#if user}}
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false">
-      Dropdown button
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="/profile/images">Mis imagenes</a>
-      <a class="dropdown-item" href="/profile/videos">Mis videos</a>
-      <a class="dropdown-item" href="/profile/audios">Something else here</a>
-      <a class="dropdown-item" href="/logout">Logout</a>
+      <div class="row mt-3">
+        <div class="col-9">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <button class="btn btn-secondary" type="button" id="button-addon1">Button</button>
+            </div>
+            <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon"
+              aria-describedby="button-addon1">
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="d-flex justify-content-around">
+            {{#if user}}
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown button
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/profile/images">Mis imagenes</a>
+                <a class="dropdown-item" href="/profile/videos">Mis videos</a>
+                <a class="dropdown-item" href="/profile/audios">Something else here</a>
+                <a class="dropdown-item" href="/logout">Logout</a>
+              </div>
+            </div>
+            {{else}}
+            <a href="/signin" class="btn btn-outline-primary" style="width: 7rem;">Iniciar</a>
+            <a href="/signup" class="btn btn-outline-secondary" style="width: 7rem;">Registrar</a>
+            {{/if}}
+
+          </div>
+        </div>
+
+      </div>
+      <div class="row mr-1 ml-1">
+
+        <div class="col-3">
+          <a class="nav-link text-center pestaña grey text-reset" href="/images" id="active-images">Imagenes</a>
+        </div>
+        <div class="col-3">
+          <a class="nav-link text-center pestaña grey text-reset" href="/sounds" id="active-sound">Audios</a>
+        </div>
+        <div class="col-3">
+          <a class="nav-link text-center pestaña grey text-reset" href="/videos" id="active-video">Videos</a>
+        </div>
+        <div class="col-3">
+          <a class="nav-link text-center pestaña grey text-reset" href="/upload" id="active-upload">Subir archivo</a>
+        </div>
+      </div>
     </div>
   </div>
-  {{/if}}
+
+
 </nav>

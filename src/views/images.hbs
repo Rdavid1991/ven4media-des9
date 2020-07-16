@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid body-top">
     <div class="card mt-2 w-100">
 
         <div class="card-body">
@@ -7,20 +7,20 @@
 
                     {{#each images}}
 
-                    <div class="card p-2">
+                    <div class="card p-1">
                         <div class="info pointer position-relative">
                             <img src="/public/upload/mark/{{filename}}" loading="lazy" alt=""
-                                class="img-thumbnail card-img-top">
+                                class="card-img-top">
                             <div class="position-absolute black-transparent info-hover" name="figure"
                                 data="{{filename}}"></div>
                             <h5 class="position-absolute info-text info-hover">{{title}}</h5>
 
                             {{#if ../user}}
-                                {{#if status}}
-                                <div data="{{_id}}" name="like" class="position-absolute like-icon liked info-hover"></div>
-                                {{else}}
-                                <div data="{{_id}}" name="like" class="position-absolute like-icon unlike info-hover"></div>
-                                {{/if}}
+                            {{#if status}}
+                            <div data="{{_id}}" name="like" class="position-absolute like-icon liked info-hover"></div>
+                            {{else}}
+                            <div data="{{_id}}" name="like" class="position-absolute like-icon unlike info-hover"></div>
+                            {{/if}}
                             {{else}}
                             <div class="position-absolute like-icon unlike info-hover"></div>
                             {{/if}}
@@ -29,11 +29,11 @@
                         </div>
                     </div>
 
-                    {{>image-modal}}
                     {{/each}}
                 </div>
             </div>
         </div>
+        {{>image-modal}}
     </div>
 </div>
 <script src="/public/js/imageScript.js"></script>

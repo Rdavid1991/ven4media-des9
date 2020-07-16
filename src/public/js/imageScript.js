@@ -1,4 +1,7 @@
+document.getElementById('active-images').style = 'background-color :#eb6468!important; border-radius:10px 10px 0 0; color:white!important;';
 const selection = document.getElementById('selection');
+const imageModal = document.getElementById('image-modal');
+const imagePreview = document.getElementById('image-preview');
 
 selection.addEventListener('click', (e) => {
     let element = e.target;
@@ -11,23 +14,9 @@ selection.addEventListener('click', (e) => {
 });
 
 function previewImage(element) {
-    element
-        .parentNode
-        .parentNode
-        .nextElementSibling
-        .style.display = "block";
+    imageModal.style.display = "block";
 
-    let img = element
-        .parentNode
-        .parentNode
-        .nextElementSibling
-        .firstElementChild
-        .lastElementChild
-        .firstElementChild
-        .firstElementChild;
-
-    img.src = '/public/upload/mark/' + element.getAttribute("data");
-
+    imagePreview.src = '/public/upload/mark/' + element.getAttribute("data");
 }
 
 function setLike(element) {
@@ -38,9 +27,9 @@ function setLike(element) {
 
         console.log(response);
         if (response.status) {
-            element.classList.replace('unlike','liked');
-        }else{
-            element.classList.replace('liked','unlike');
+            element.classList.replace('unlike', 'liked');
+        } else {
+            element.classList.replace('liked', 'unlike');
         }
 
         element.nextElementSibling.innerText = response.like;
@@ -50,13 +39,8 @@ function setLike(element) {
 
 // eslint-disable-next-line no-unused-vars
 function closeImgModal(e) {
-    let img = e.nextElementSibling
-        .firstElementChild
-        .firstElementChild;
 
-    img.src = "";
+    imagePreview.src = "";
 
-    e.parentNode
-        .parentNode
-        .style.display = "none";
+    imageModal.style.display = "none";
 }

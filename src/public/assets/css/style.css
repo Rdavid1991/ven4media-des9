@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* Fixed sidenav, full height */
 .sidenav {
   height: 100%;
@@ -223,6 +224,31 @@ body {
 
 .like-icon:hover {
   filter: invert(0.7);
+}
+
+@media (min-width: 576px) {
+  .card-columns {
+    column-count: 4;
+    column-gap: 0.5rem;
+  }
+}
+.pestaña {
+  border-radius: 10px 10px 0 0;
+  width: 8rem;
+  color: #fff !important;
+}
+
+.grey {
+  background-color: #bfbfbf;
+}
+
+.withe {
+  background-color: #fff;
+  border: solid 1px black;
+}
+
+.body-top {
+  margin-top: 7rem;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -114,11 +114,11 @@ body {
   right: 3rem;
 }
 
-.unlike{
+.unlike {
   filter: invert(1);
 }
 
-.liked{
+.liked {
   filter: invert(50%) sepia(40%) saturate(3329%) hue-rotate(180deg) brightness(100%) contrast(70%);
 }
 
@@ -131,4 +131,31 @@ body {
 
 .like-icon:hover {
   filter: invert(0.7);
+}
+
+//cantidad de columnas
+@media (min-width: 576px) {
+  .card-columns {
+    column-count: 4;
+    column-gap: 0.5rem;
+  }
+}
+
+.pestaña{
+  border-radius: 10px 10px 0 0;
+  width: 8rem;
+  color: #fff!important;
+}
+
+.grey{
+  background-color: #bfbfbf;
+}
+
+.withe{
+  background-color: #fff;
+  border: solid 1px black;
+}
+
+.body-top{
+  margin-top: 7rem;
 }
