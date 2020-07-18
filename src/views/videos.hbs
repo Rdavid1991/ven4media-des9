@@ -1,41 +1,5 @@
-<div class="container-fluid body-top">
-    <div class="card mt-2 w-100">
-        <div class="card-header bg-dark text-white fixed">
-            <h3> <i class="far fa-images"></i>Lista de videos</h3>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div id="video-selection" class="card-columns" style="width: 100%;">
-                    {{#each videos}}
-                    <div class="card p-1">
-                        <div class=" info pointer position-relative">
-                            <img src="/public/upload/video-miniature/{{miniature}}.png" loading="lazy" alt=""
-                                class="card-img-top">
-                            <div class="position-absolute black-transparent info-hover" name="figure"
-                                data="{{miniature}}"></div>
-                            <span class="time">{{min}}:{{seg}}</span>
-                            <h5 class="position-absolute info-text text-truncate info-hover" style="max-width: 50%;">
-                                {{title}}</h5>
-                            {{#if ../user}}
-                                {{#if status}}
-                                <div data="{{_id}}" name="like" class="position-absolute like-icon liked info-hover"></div>
-                                {{else}}
-                                <div data="{{_id}}" name="like" class="position-absolute like-icon unlike info-hover"></div>
-                                {{/if}}
-                            {{else}}
-                            <div class="position-absolute like-icon unlike info-hover"></div>
-                            {{/if}}
-                            <div class="position-absolute like-count info-hover">{{likes}}</div>
-                        </div>
-                    </div>
-
-                    {{/each}}
-
-                </div>
-            </div>
-        </div>
-    </div>
-    {{>video-modal}}
+<div class="container body-top">
+    {{> video-list}}
 </div>
-
+ {{>video-modal}}
 <script src="/public/js/videosScript.js"></script>
