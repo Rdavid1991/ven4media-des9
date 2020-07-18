@@ -1,0 +1,25 @@
+<div class="row">
+    <div id="selection" class="card-columns" style="width: 100%;">
+        {{#each images}}
+        <div class="card p-1">
+            <div class="info pointer position-relative">
+                <img src="/public/upload/mark/{{filename}}" loading="lazy" alt="" class="card-img-top">
+                <div class="position-absolute black-transparent info-hover" name="figure" data="{{filename}}"></div>
+                <h5 class="position-absolute info-text info-hover">{{title}}</h5>
+
+                {{#if ../user}}
+                {{#if status}}
+                <div data="{{_id}}" name="like" class="position-absolute like-icon liked info-hover"></div>
+                {{else}}
+                <div data="{{_id}}" name="like" class="position-absolute like-icon unlike info-hover"></div>
+                {{/if}}
+                {{else}}
+                <div class="position-absolute like-icon unlike info-hover"></div>
+                {{/if}}
+
+                <div class="position-absolute like-count info-hover">{{likes}}</div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
