@@ -19,8 +19,8 @@ module.exports = {
             res.send(videoUrl);
 
         } else if (ext === '.mp3' || ext === ".acc") {
-            let imageUrl = await saveAudio(ext, fileTempPath, req);
-            res.send(imageUrl);
+            let audioUrl = await saveAudio(ext, fileTempPath, req);
+            res.send(audioUrl);
         } else {
             await fs.unlink(fileTempPath);
             res.status(500).json({ error: 'file is not correct' });

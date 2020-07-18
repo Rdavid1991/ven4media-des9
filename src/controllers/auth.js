@@ -41,7 +41,7 @@ module.exports = {
         res.render('profile', {videos, video:true});
     },
 
-    sound: async(req,res)=>{
+    audio: async(req,res)=>{
  
         const audios = await Audio.find({userid:req.user._id}).sort({timestamp:'desc'});
 

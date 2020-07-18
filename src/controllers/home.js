@@ -33,25 +33,25 @@ module.exports = {
         res.render('images', viewModel);
     },
 
-    sounds: async (req, res) => {
-        const audio = await Audio.find({});
+    audios: async (req, res) => {
+        const audios = await Audio.find({});
 
         if (req.user) {
             const like = await UserLike.find({ user: req.user._id });
 
-            for (let i = 0; i < audio.length; i++) {
+            for (let i = 0; i < audios.length; i++) {
                 for (let j = 0; j < like.length; j++) {
     
-                    if (String(audio[i]._id) === String(like[j].imgId)) {
+                    if (String(audios[i]._id) === String(like[j].imgId)) {
                         console.log('funciona');
-                        audio[i].status = like[j].status;
+                        audios[i].status = like[j].status;
                     }
                 }
             }
         }
 
-        let viewModel = { audio: [] };
-        viewModel.audio = audio;
+        let viewModel = { audios: [] };
+        viewModel.audios = audios;
         res.render('sounds', viewModel);
     },
 

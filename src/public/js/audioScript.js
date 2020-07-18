@@ -1,3 +1,4 @@
+document.getElementById('active-audio').style = 'background-color :#eb6468!important; border-radius:10px 10px 0 0; color:white!important;';
 
 let audio = document.getElementById('audio');
 let selection = document.getElementById('selection');

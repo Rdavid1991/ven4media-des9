@@ -15,7 +15,7 @@ module.exports = app => {
     router.get('/', home.home);
     router.get('/images', home.images);
     router.get('/videos', home.videos);
-    router.get('/sounds', home.sounds);
+    router.get('/sounds', home.audios);
     router.get('/upload', isAuthenticate, home.upload);
 
     //Session
@@ -25,8 +25,8 @@ module.exports = app => {
     router.post('/signin', auth.signinLogin);
     router.get('/profile', isAuthenticate, auth.profile);
     router.get('/profile/images', isAuthenticate, auth.images);
-    router.get('/profile/video', isAuthenticate, auth.video);
-    router.get('/profile/sound', isAuthenticate, auth.sound);
+    router.get('/profile/videos', isAuthenticate, auth.video);
+    router.get('/profile/audios', isAuthenticate, auth.audio);
     router.get('/*logout', auth.logout);
 
     //Likes
