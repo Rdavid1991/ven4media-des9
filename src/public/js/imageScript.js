@@ -1,7 +1,5 @@
 document.getElementById('active-images').style = 'background-color :#eb6468!important; border-radius:10px 10px 0 0; color:white!important;';
 const selection = document.getElementById('selection');
-const imageModal = document.getElementById('image-modal');
-const imagePreview = document.getElementById('image-preview');
 
 selection.addEventListener('click', (e) => {
     let element = e.target;
@@ -14,9 +12,13 @@ selection.addEventListener('click', (e) => {
 });
 
 function previewImage(element) {
-    imageModal.style.display = "block";
 
-    imagePreview.src = '/public/upload/mark/' + element.getAttribute("data");
+    element
+        .parentNode
+        .parentNode
+        .nextElementSibling
+        .style
+        .display = "block";
 }
 
 function setLike(element) {
@@ -38,9 +40,11 @@ function setLike(element) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function closeImgModal(e) {
+function closeImgModal(element) {
 
-    imagePreview.src = "";
-
-    imageModal.style.display = "none";
+    element
+        .parentNode
+        .parentNode
+        .style
+        .display = "none";
 }

@@ -1,7 +1,5 @@
 document.getElementById('active-video').style = 'background-color :#eb6468!important; border-radius:10px 10px 0 0; color:white!important;';
 const selection = document.getElementById('video-selection');
-const videoModal = document.getElementById('video-modal');
-const videoPreview = document.getElementById('video-preview');
 
 selection.addEventListener('click', (e) => {
     let element = e.target;
@@ -14,7 +12,8 @@ selection.addEventListener('click', (e) => {
 });
 
 function previewVideo(element) {
-    videoModal.style.display = "block";
+    let modal = element.parentNode.parentNode.nextElementSibling;
+    modal.style.display = "block";
 
     let xhs = new XMLHttpRequest();
     xhs.open("GET", "/watch/" + element.getAttribute("data"));
@@ -23,9 +22,9 @@ function previewVideo(element) {
         let blob = new Blob([xhs.response]);
         let url = URL.createObjectURL(blob);
 
-        console.log(url);
-
-        videoPreview.src = url;
+        modal
+            .getElementsByClassName('video-modal')[0]
+            .src = url;
     };
     xhs.send();
 }
@@ -46,10 +45,12 @@ function setLike(element) {
     xhs.send();
 }
 
-function closeModal(e) {
-   
+function closeModal(element) {
+
+    let videoPreview = element.parentNode.getElementsByClassName('video-modal')[0];
+
     videoPreview.pause();
     videoPreview.src = "";
 
-    videoModal.style.display = "none";
+    element.parentNode.parentNode.style.display = "none";
 }
