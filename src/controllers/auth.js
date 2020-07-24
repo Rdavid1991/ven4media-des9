@@ -23,8 +23,13 @@ module.exports = {
         passReqToCallback: true
     }),
 
-    profile: (req, res) => {
-        res.render('profile');
+    profile: async (req, res) => {
+
+        const images = await Image.find({userid:req.user._id}).sort({likes:'desc'}).limit(5);
+        const audios = await Audio.find({userid:req.user._id}).sort({likes:'asc'}).limit(5);
+        const videos = await Video.find({userid:req.user._id}).sort({likes:'asc'}).limit(5);
+
+        res.render('profile' ,{images,audios,videos,profile:true});
     },
 
     images: async(req,res)=>{
@@ -37,6 +42,8 @@ module.exports = {
     video: async(req,res)=>{
  
         const videos = await Video.find({userid:req.user._id}).sort({timestamp:'desc'});
+
+        console.log(videos);
 
         res.render('profile', {videos, video:true});
     },

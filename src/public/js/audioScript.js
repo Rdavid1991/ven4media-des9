@@ -1,13 +1,14 @@
 document.getElementById('active-audio').style = 'background-color :#eb6468!important; border-radius:10px 10px 0 0; color:white!important;';
 
 let audio = document.getElementById('audio');
-let selection = document.getElementById('selection');
+let audioSelection = document.getElementById('selection');
 
 
 
 let interval;
 let newid;
 
+// eslint-disable-next-line no-unused-vars
 audio.addEventListener('play', (e) => {
 
     interval = setInterval(() => {
@@ -20,7 +21,7 @@ audio.addEventListener('pause', () => {
     clearInterval(interval);
 });
 
-selection.addEventListener('click', (e) => {
+audioSelection.addEventListener('click', (e) => {
 
     let element = e.target;
 

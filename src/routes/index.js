@@ -33,10 +33,8 @@ module.exports = app => {
     router.post('/images/:image_id/like', home.imgLike);
     router.post('/videos/:video_id/like', home.vidLike);
 
-
     router.get('/watch/:video_id', blob.videoModal);
     router.get('/video-file/:video_id', blob.videoPreview);
-
 
     router.post('/upload', isAuthenticate, create.data);
 
@@ -51,5 +49,5 @@ function isAuthenticate(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-    res.redirect('/signup');
+    res.redirect('/signin');
 }

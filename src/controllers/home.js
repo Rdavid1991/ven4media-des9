@@ -4,76 +4,43 @@ module.exports = {
 
     /* Mostrar pantalla principal */
     home: async (req, res) => {
-        res.render('home');
+
+        const images = await Image.find({}).sort({ likes: 'desc' }).limit(5);
+        const audios = await Audio.find({}).sort({ likes: 'asc' }).limit(5);
+        const videos = await Video.find({}).sort({ likes: 'asc' }).limit(5);
+
+        let viewModel = { audios: [], images: [], videos: [] };
+
+        viewModel.images = await getLike(req,images);
+        viewModel.videos = await getLike(req,videos);
+        viewModel.audios = await getLike(req,audios);
+
+        res.render('home', viewModel);
     },
 
     /* Mostrar lista de imagenes */
     images: async (req, res) => {
- 
+
         const images = await Image.find({});
 
-        if (req.user) {
-            const like = await UserLike.find({ user: req.user._id });
-
-            for (let i = 0; i < images.length; i++) {
-                for (let j = 0; j < like.length; j++) {
-    
-                    if (String(images[i]._id) === String(like[j].imgId)) {
-                        console.log('funciona');
-                        images[i].status = like[j].status;
-                    }
-                }
-            }
-        }
-
-        console.log(images);
-
         let viewModel = { images: [] };
-        viewModel.images = images;
+        viewModel.images = await getLike(req, images);
         res.render('images', viewModel);
     },
 
     audios: async (req, res) => {
         const audios = await Audio.find({});
 
-        if (req.user) {
-            const like = await UserLike.find({ user: req.user._id });
-
-            for (let i = 0; i < audios.length; i++) {
-                for (let j = 0; j < like.length; j++) {
-    
-                    if (String(audios[i]._id) === String(like[j].imgId)) {
-                        console.log('funciona');
-                        audios[i].status = like[j].status;
-                    }
-                }
-            }
-        }
-
         let viewModel = { audios: [] };
-        viewModel.audios = audios;
+        viewModel.audios = await getLike(req, audios);
         res.render('sounds', viewModel);
     },
 
     videos: async (req, res) => {
         const videos = await Video.find({});
 
-        if (req.user) {
-            const like = await UserLike.find({ user: req.user._id });
-
-            for (let i = 0; i < videos.length; i++) {
-                for (let j = 0; j < like.length; j++) {
-    
-                    if (String(videos[i]._id) === String(like[j].imgId)) {
-                        console.log('funciona');
-                        videos[i].status = like[j].status;
-                    }
-                }
-            }
-        }
-
         let viewModel = { videos: [] };
-        viewModel.videos = videos;
+        viewModel.videos = await getLike(req, videos);
         res.render('videos', viewModel);
     },
 
@@ -118,11 +85,11 @@ module.exports = {
         let user;
         const vid = await Video.findOne({ _id: req.params.video_id });
         if (vid) {
-            user = await UserLike.findOne({ user: req.user._id, imgId: String(vid._id)});
-        }else{
-            user = await UserLike.findOne({ user: req.user._id});
+            user = await UserLike.findOne({ user: req.user._id, imgId: String(vid._id) });
+        } else {
+            user = await UserLike.findOne({ user: req.user._id });
         }
-        
+
 
         if (user) {
             if (vid) {
@@ -151,4 +118,22 @@ module.exports = {
             res.json({ like: vid.likes, status: newuser.status });
         }
     }
+};
+
+const getLike = async (req, data) => {
+    if (req.user) {
+        const like = await UserLike.find({ user: req.user._id });
+
+        for (let i = 0; i < data.length; i++) {
+            for (let j = 0; j < like.length; j++) {
+
+                if (String(data[i]._id) === String(like[j].imgId)) {
+                    console.log('funciona');
+                    data[i].status = like[j].status;
+                }
+            }
+        }
+    }
+
+    return data;
 };

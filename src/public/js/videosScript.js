@@ -1,13 +1,13 @@
 document.getElementById('active-video').style = 'background-color :#eb6468!important; border-radius:10px 10px 0 0; color:white!important;';
-const selection = document.getElementById('video-selection');
+const videoSelection = document.getElementById('video-selection');
 
-selection.addEventListener('click', (e) => {
+videoSelection.addEventListener('click', (e) => {
     let element = e.target;
 
     if (element.getAttribute("name") === "figure") {
         previewVideo(element);
     } else if (element.getAttribute("name") === "like") {
-        setLike(element);
+        setVideoLike(element);
     }
 });
 
@@ -18,6 +18,7 @@ function previewVideo(element) {
     let xhs = new XMLHttpRequest();
     xhs.open("GET", "/watch/" + element.getAttribute("data"));
     xhs.responseType = "arraybuffer";
+    // eslint-disable-next-line no-unused-vars
     xhs.onload = (e) => {
         let blob = new Blob([xhs.response]);
         let url = URL.createObjectURL(blob);
@@ -29,9 +30,10 @@ function previewVideo(element) {
     xhs.send();
 }
 
-function setLike(element) {
+function setVideoLike(element) {
     let xhs = new XMLHttpRequest();
     xhs.open("POST", "/videos/" + element.getAttribute("data") + "/like");
+    // eslint-disable-next-line no-unused-vars
     xhs.onload = (e) => {
         let response = JSON.parse(xhs.response);
 
@@ -45,6 +47,7 @@ function setLike(element) {
     xhs.send();
 }
 
+// eslint-disable-next-line no-unused-vars
 function closeModal(element) {
 
     let videoPreview = element.parentNode.getElementsByClassName('video-modal')[0];

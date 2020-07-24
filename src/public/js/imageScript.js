@@ -7,7 +7,7 @@ selection.addEventListener('click', (e) => {
     if (element.getAttribute("name") === "figure") {
         previewImage(element);
     } else if (element.getAttribute("name") === "like") {
-        setLike(element);
+        setImageLike(element);
     }
 });
 
@@ -21,7 +21,7 @@ function previewImage(element) {
         .display = "block";
 }
 
-function setLike(element) {
+function setImageLike(element) {
     let xhs = new XMLHttpRequest();
     xhs.open("POST", "/images/" + element.getAttribute("data") + "/like");
     xhs.onload = () => {
