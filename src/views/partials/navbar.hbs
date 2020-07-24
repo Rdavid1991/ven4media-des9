@@ -18,15 +18,16 @@
           <div class="d-flex justify-content-around">
             {{#if user}}
             <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown button
+              <button class="btn dropdown-toggle text-primary" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown">
+                <img src="/public/profile.png" alt="" srcset="" style="width: 30px;height: 30px;border-radius: 50%!important;">
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/profile">Mis archivos mas gustados</a>
                 <a class="dropdown-item" href="/profile/images">Mis imagenes</a>
                 <a class="dropdown-item" href="/profile/videos">Mis videos</a>
                 <a class="dropdown-item" href="/profile/audios">Mis Audios</a>
-                <a class="dropdown-item" href="/logout">Logout</a>
+                <a class="dropdown-item" href="/logout">Cerrar sesion</a>
               </div>
             </div>
             {{else}}

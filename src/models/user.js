@@ -2,11 +2,14 @@ const { Schema, model } = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 const UserSchema = new Schema({
-    email:{type: String},
-    password:{type: String}
+    email: { type: String },
+    password: { type: String },
+    name: { type: String },
+    lastName: { type: String },
+    user: { type: String },
 });
 
-UserSchema.methods.encryptPassword = (password) =>{
+UserSchema.methods.encryptPassword = (password) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 };
 
