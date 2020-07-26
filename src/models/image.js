@@ -6,6 +6,7 @@ const { Schema } = mongoose;
 const ImageSchema = new Schema({
     title: { type: String },
     description: { type: String },
+    price:{type:String,default:"399"},
     filename: { type: String },
     userid: { type: String },
     status:{type: Boolean,default:false},

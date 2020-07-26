@@ -1,4 +1,4 @@
-@import "sidebars", "tools", "audio";
+@import "sidebars", "tools", "audio", "payment";
 
 * {
   margin: 0;
@@ -8,6 +8,7 @@ body {
   background: #ebebeb;
   font-family: "Lato", sans-serif;
   user-select: none;
+  overflow-x: hidden;
 }
 /* Main content */
 .main {

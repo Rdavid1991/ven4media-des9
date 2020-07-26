@@ -1,0 +1,29 @@
+<div class="d-flex justify-content-center align-items-center" style="min-width: 100wh;min-height: 70vh;">
+    <div class="card w-75">
+        <div class="card-body">
+            <form id="payment-form" class="sr-payment-form">
+                <div class="form-group sr-combo-inputs-row">
+                    <label for="">Numero de targeta</label>
+                    <div class="sr-input sr-card-element" id="card-element"></div>
+                </div>
+                <div class="sr-field-error" id="card-errors" role="alert"></div>
+                <div class="form-group">
+                    <label for="">Nombre del propietario</label>
+                    <input type="text" name="name" class="form-control" placeholder="Propietario de la targeta"
+                        required>
+                </div>
+                <div class="form-group">
+                    <button id="submit" class="btn btn-primary" datatype="{{type}}" datafile="{{file._id}}">
+                        <div class="spinner hidden" id="spinner"></div>
+                        <span id="button-text"> Pagar {{unitAmount file.price}} $</span>
+                    </button>
+                </div>
+            </form>
+            <div class="sr-result hidden">
+                <div id="result">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

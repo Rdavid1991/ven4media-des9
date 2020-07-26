@@ -40,6 +40,12 @@ module.exports = app => {
 
     router.get('/video/miniature/:miniature_id', blob.miniature);
 
+    router.get('/image/payment/:image_id',isAuthenticate,auth.imagePayment );
+
+    router.get('/stripe-key',isAuthenticate,auth.stripeKey);
+    router.post('/pay',isAuthenticate,auth.pay);
+
+    router.get('/download/:file_id',isAuthenticate,auth.download);
 
     app.use(router);
 };

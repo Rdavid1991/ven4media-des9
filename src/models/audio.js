@@ -7,6 +7,7 @@ const videoSchema = new Schema({
     title: String,
     filename: String,
     description: String,
+    price:{type:String,default:"299"},
     userid:{type: String},
     status:{type: Boolean,default:false},
     likes: { type: Number, default: 0 },

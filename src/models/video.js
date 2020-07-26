@@ -7,6 +7,7 @@ const VideoSchema = new Schema({
     title: { type: String },
     description: { type: String },
     filename: { type: String },
+    price:{type:String,default:"499"},
     min:{type: Number},
     seg:{type: Number},
     width:{type: Number},

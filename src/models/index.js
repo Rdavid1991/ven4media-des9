@@ -3,5 +3,6 @@ module.exports = {
     Video: require('./video'),
     Audio: require('./audio'),
     User: require('./user'),
-    UserLike: require('./userlike')
+    UserLike: require('./userlike'),
+    UserSold: require('./sold')
 };
