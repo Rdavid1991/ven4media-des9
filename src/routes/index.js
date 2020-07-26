@@ -32,6 +32,7 @@ module.exports = app => {
     //Likes
     router.post('/images/:image_id/like', home.imgLike);
     router.post('/videos/:video_id/like', home.vidLike);
+    router.post('/audios/:audio_id/like',home.audLike);
 
     router.get('/watch/:video_id', blob.videoModal);
     router.get('/video-file/:video_id', blob.videoPreview);
@@ -41,6 +42,9 @@ module.exports = app => {
     router.get('/video/miniature/:miniature_id', blob.miniature);
 
     router.get('/image/payment/:image_id',isAuthenticate,auth.imagePayment );
+    router.get('/video/payment/:video_id',isAuthenticate,auth.videoPayment );
+    router.get('/audio/payment/:audio_id',isAuthenticate,auth.audioPayment );
+
 
     router.get('/stripe-key',isAuthenticate,auth.stripeKey);
     router.post('/pay',isAuthenticate,auth.pay);

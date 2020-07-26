@@ -6,8 +6,6 @@ const {saveImage,saveVideo,saveAudio} = require("./process");
 module.exports = {
     data: async (req, res) => {
 
-        console.log(req.user);
-
         const fileTempPath = req.file.path;
         const ext = path.extname(req.file.originalname).toLowerCase();
 

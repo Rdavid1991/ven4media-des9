@@ -33,6 +33,3 @@ function loadVideo(video) {
     };
     xhs.send();
 }
-
-
-

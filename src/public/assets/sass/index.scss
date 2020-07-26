@@ -119,8 +119,16 @@ body {
   filter: invert(1);
 }
 
+.unlike-bk {
+  filter: invert(0.5);
+}
+
 .liked {
-  filter: invert(50%) sepia(40%) saturate(3329%) hue-rotate(180deg) brightness(100%) contrast(70%);
+  filter: invert(59%) sepia(40%) saturate(2001%) hue-rotate(-45.5deg) brightness(92%) contrast(100%);
+}
+
+.liked-bk {
+  filter: invert(59%) sepia(40%) saturate(2001%) hue-rotate(-45.5deg) brightness(92%) contrast(100%);
 }
 
 .like-count {

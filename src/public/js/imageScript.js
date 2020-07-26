@@ -1,9 +1,8 @@
 document.getElementById('active-images').style = 'background-color :#eb6468!important; border-radius:10px 10px 0 0; color:white!important;';
-const selection = document.getElementById('selection');
-const btnData = document.getElementById('btn-data');
-const formImagePayment = document.getElementById('form-payment-image');
+const imageSelection = document.getElementById('image-selection');
 
-selection.addEventListener('click', (e) => {
+
+imageSelection.addEventListener('click', (e) => {
     let element = e.target;
 
     if (element.getAttribute("name") === "figure") {
@@ -29,7 +28,6 @@ function setImageLike(element) {
     xhs.onload = () => {
         let response = JSON.parse(xhs.response);
 
-        console.log(response);
         if (response.status) {
             element.classList.replace('unlike', 'liked');
         } else {

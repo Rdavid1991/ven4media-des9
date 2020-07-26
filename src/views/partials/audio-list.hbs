@@ -1,7 +1,7 @@
-<div id="selection" class="card-body">
+<div id="audio-selection" class="card-body">
     <div class="row">
         {{#each audios}}
-        <div class="col-3">
+        <div class="col-6">
             <div class="card">
                 <div class="card-body p-1">
                     <div class="d-flex">
@@ -13,10 +13,29 @@
                         <div class="d-block">
                             <h5 class="ml-1">{{title}}</h5>
                             <span class="ml-1">{{description}}</span>
-
                         </div>
+
                     </div>
                     <input type="range" value="0" min="0" max="100" class="form-control-range" id="{{filename}}">
+                    {{#if ../user}}
+                    {{#if status}}
+                    <div data="{{_id}}" name="like" class="pointer position-absolute like-icon liked-bk info-hover">
+                    </div>
+                    {{else}}
+                    <div data="{{_id}}" name="like" class="pointer position-absolute like-icon unlike-bk info-hover">
+                    </div>
+                    {{/if}}
+                    {{else}}
+                    <div class="position-absolute like-icon unlike-bk info-hover pointer"></div>
+                    {{/if}}
+
+                    <div class="text-primary position-absolute like-count info-hover">{{likes}}</div>
+
+                    <form action="/audio/payment/{{_id}}" method="GET" style="position: absolute;right: 1%;top: 35%;">
+                        <div class="form-group">
+                            <button type="submit" data="{{_id}}" class="btn btn-success">Comprar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

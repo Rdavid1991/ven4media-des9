@@ -45,8 +45,6 @@ module.exports = {
 
         const videos = await Video.find({ userid: req.user._id }).sort({ timestamp: 'desc' });
 
-        console.log(videos);
-
         res.render('profile', { videos, video: true });
     },
 
@@ -61,7 +59,21 @@ module.exports = {
         const { image_id } = req.params;
         const image = await Image.find({ _id: image_id });
 
-        res.render('payment', { file: image[0], type: "image" });
+        res.render('payment', { file: image[0], type: "image", isImage: true });
+    },
+
+    videoPayment: async (req, res) => {
+        const { video_id } = req.params;
+        const video = await Video.findOne({ _id: video_id });
+
+        res.render('payment', { file: video, type: "video", isVideo: true });
+    },
+
+    audioPayment: async (req, res) => {
+        const { audio_id } = req.params;
+        const audio = await Audio.findOne({ _id: audio_id });
+        
+        res.render('payment', { file: audio, type: "audio", isAudio: true });
     },
 
     stripeKey: (req, res) => {
@@ -71,7 +83,7 @@ module.exports = {
     pay: async (req, res) => {
         const { paymentMethodId, paymentIntentId, items, currency, useStripeSdk, fileType } = req.body;
 
-        const orderAmount = await calculateOrderAmount(items);
+        const orderAmount = await calculateOrderAmount(items, fileType);
 
         try {
             let intent;
@@ -116,17 +128,20 @@ module.exports = {
 
     download: async (req, res) => {
 
-        let image;
-
         const { file_id } = req.params;
 
         const userSold = await UserSold.findOne({ soldId: file_id });
 
-        console.log(userSold);
 
         if (userSold.filetype === "image") {
-            image = await Image.findOne({ _id: userSold.fileid });
-            res.download(path.resolve(__dirname,`../public/upload/images/${image.filename}`),`image_${image.title}${path.extname(image.filename)}`);
+            const image = await Image.findOne({ _id: userSold.fileid });
+            res.download(path.resolve(__dirname, `../public/upload/images/${image.filename}`), `image_${image.title}${path.extname(image.filename)}`);
+        }else if (userSold.filetype === "video") {
+            const video = await Video.findOne({ _id: userSold.fileid });
+            res.download(path.resolve(__dirname, `../public/upload/video/${video.filename}`), `video_${video.title}${path.extname(video.filename)}`);
+        }else if (userSold.filetype === "audio") {
+            const audio = await Audio.findOne({ _id: userSold.fileid });
+            res.download(path.resolve(__dirname, `../public/upload/audio/${audio.filename}`), `audio_${audio.title}${path.extname(audio.filename)}`);
         }
     },
 
@@ -160,9 +175,16 @@ const generateResponse = intent => {
     }
 };
 
-const calculateOrderAmount = async (items) => {
+const calculateOrderAmount = async (items, type) => {
 
-    const image = await Image.find({ _id: items[0].id });
-
-    return image[0].price;
+    if (type === "image") {
+        const image = await Image.findOne({ _id: items[0].id });
+        return image.price;
+    } else if (type === "video") {
+        const video = await Video.findOne({ _id: items[0].id });
+        return video.price;
+    }else if (type === "audio"){
+        const audio = await Audio.findOne({ _id: items[0].id });
+        return audio.price;
+    }
 };

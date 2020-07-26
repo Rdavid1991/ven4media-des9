@@ -48,7 +48,7 @@ function setVideoLike(element) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function closeModal(element) {
+function closeVideoModal(element) {
 
     let videoPreview = element.parentNode.getElementsByClassName('video-modal')[0];
 

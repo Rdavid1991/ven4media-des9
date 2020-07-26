@@ -20,11 +20,6 @@ passport.use('local-signup', new LocalStrategy({
 
     const dbuser = await User.findOne({ email: email });
 
-    console.log(req.body);
-  
-    console.log(email, "fuciona");
-    console.log(password, "esta es la contraseña");
-
     if (dbuser) {
         return done(null, false, req.flash('signupMessage', 'El email ya existe'));
     } else {

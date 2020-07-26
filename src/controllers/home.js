@@ -117,6 +117,44 @@ module.exports = {
             await newuser.save();
             res.json({ like: vid.likes, status: newuser.status });
         }
+    },
+    
+    audLike: async (req, res) => {
+        let user;
+        const aud = await Audio.findOne({ _id: req.params.audio_id });
+        if (aud) {
+            user = await UserLike.findOne({ user: req.user._id, imgId: String(aud._id) });
+        } else {
+            user = await UserLike.findOne({ user: req.user._id });
+        }
+
+
+        if (user) {
+            if (aud) {
+                if (user.status === true) {
+                    aud.likes = aud.likes - 1;
+                    user.status = false;
+                } else if (user.status === false) {
+                    aud.likes = aud.likes + 1;
+                    user.status = true;
+                }
+            } else {
+                res.status(500).json({ error: 'internal error' });
+            }
+            await user.save();
+            await aud.save();
+            res.json({ like: aud.likes, status: user.status });
+        } else {
+            const newuser = new UserLike({
+                imgId: aud._id,
+                user: req.user._id,
+                status: true,
+            });
+            aud.likes = aud.likes + 1;
+            await aud.save();
+            await newuser.save();
+            res.json({ like: aud.likes, status: newuser.status });
+        }
     }
 };
 
@@ -128,7 +166,7 @@ const getLike = async (req, data) => {
             for (let j = 0; j < like.length; j++) {
 
                 if (String(data[i]._id) === String(like[j].imgId)) {
-                    console.log('funciona');
+
                     data[i].status = like[j].status;
                 }
             }
