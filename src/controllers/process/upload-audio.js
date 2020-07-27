@@ -31,7 +31,7 @@ const saveAudio = async (ext, audioTempPath, req) => {
 
         await newAudio.save();
 
-        return audioUrl;
+        return { fileUrl: `${audioUrl}${ext}`, duration: '' };
     }
 };
 

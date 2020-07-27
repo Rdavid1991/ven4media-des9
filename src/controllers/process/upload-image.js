@@ -26,6 +26,7 @@ const saveImage = async (ext, imageTempPath, req) => {
 
             const python = spawn('nudepy', [`${targetPath}`]);
 
+            // eslint-disable-next-line no-unused-vars
             let intento = await new Promise((res, rej) => {
                 python.stdout.on('data', function (data) {
                     console.log('Pipe data from python script ...');
