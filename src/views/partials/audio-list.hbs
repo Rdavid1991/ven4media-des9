@@ -37,6 +37,13 @@
                         </div>
                     </form>
                 </div>
+
+                {{#if ../user}}
+                {{#if soldid}}
+                <a href="/download/{{soldid}}" class="btn btn-success position-absolute"
+                    style="bottom:15%;right:1%;">Descargar</a>
+                {{/if}}
+                {{/if}}
             </div>
         </div>
         {{/each}}

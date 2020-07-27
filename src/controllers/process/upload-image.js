@@ -1,5 +1,6 @@
 const path = require("path");
 const fs = require('fs-extra');
+const { spawn } = require('child_process');
 
 const libs = require('../../helpers/libs');
 const { Image } = require('../../models');
@@ -21,10 +22,27 @@ const saveImage = async (ext, imageTempPath, req) => {
 
         await fs.rename(imageTempPath, targetPath);
 
+        if (process.env.NODE_ENV === 'production') {
+
+            const python = spawn('nudepy', [`${targetPath}`]);
+
+            let intento = await new Promise((res, rej) => {
+                python.stdout.on('data', function (data) {
+                    console.log('Pipe data from python script ...');
+                    let dataToSend = data.toString();
+                    res(dataToSend);
+                });
+            });
+            if(intento.match(/True/g)){
+                await fs.unlink(targetPath);
+                return { fileUrl: '', duration: "Imagen inapropiada" };
+            }
+        }
+
         let result = waterMark(`${imageUrl}${ext}`);
 
         if (result) {
-            fs.unlink(targetPath);
+            await fs.unlink(targetPath);
             return { fileUrl: '', duration: "Fallo la subida de la imagen" };
         } else {
 

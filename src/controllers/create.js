@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require('fs-extra');
 
-const {saveImage,saveVideo,saveAudio} = require("./process");
+const { saveImage, saveVideo, saveAudio } = require("./process");
 
 module.exports = {
     data: async (req, res) => {

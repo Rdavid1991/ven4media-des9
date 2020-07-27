@@ -10,6 +10,7 @@ const videoSchema = new Schema({
     price:{type:String,default:"299"},
     userid:{type: String},
     status:{type: Boolean,default:false},
+    soldid: {type: String,default:null},
     likes: { type: Number, default: 0 },
     timestamp: { type: Date, default: Date.now }
 

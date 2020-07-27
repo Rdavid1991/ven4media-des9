@@ -10,6 +10,7 @@ const ImageSchema = new Schema({
     filename: { type: String },
     userid: { type: String },
     status:{type: Boolean,default:false},
+    soldid: {type: String,default:null},
     views: { type: Number, default: 0 },
     likes: { type: Number, default: 0 },
     timestamp: { type: Date, default: Date.now }

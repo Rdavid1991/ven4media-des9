@@ -1,4 +1,4 @@
-const { Image, Video, Audio, UserLike } = require('../models');
+const { Image, Video, Audio, UserLike, UserSold } = require('../models');
 
 module.exports = {
 
@@ -25,6 +25,9 @@ module.exports = {
 
         let viewModel = { images: [] };
         viewModel.images = await getLike(req, images);
+        viewModel.images = await getDownloaded(req, images);
+
+        console.log(viewModel);
         res.render('images', viewModel);
     },
 
@@ -33,6 +36,7 @@ module.exports = {
 
         let viewModel = { audios: [] };
         viewModel.audios = await getLike(req, audios);
+        viewModel.audios = await getDownloaded(req, audios);
         res.render('sounds', viewModel);
     },
 
@@ -41,6 +45,7 @@ module.exports = {
 
         let viewModel = { videos: [] };
         viewModel.videos = await getLike(req, videos);
+        viewModel.videos = await getDownloaded(req, videos);
         res.render('videos', viewModel);
     },
 
@@ -168,6 +173,25 @@ const getLike = async (req, data) => {
                 if (String(data[i]._id) === String(like[j].imgId)) {
 
                     data[i].status = like[j].status;
+                }
+            }
+        }
+    }
+
+    return data;
+};
+
+const getDownloaded = async (req, data) => {
+
+    if (req.user) {
+        const sold = await UserSold.find({ userid: req.user._id });
+
+        for (let i = 0; i < data.length; i++) {
+            for (let j = 0; j < sold.length; j++) {
+
+                if (String(data[i]._id) === String(sold[j].fileid)) {
+
+                    data[i].soldid = sold[j].soldId;
                 }
             }
         }

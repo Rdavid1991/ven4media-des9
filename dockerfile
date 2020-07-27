@@ -18,6 +18,12 @@ RUN wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.t
 RUN rm -r Ima*   
 RUN rm -r ffmpeg*
 
+RUN apt update
+
+RUN apt install -y python-pip
+
+RUN pip install nudepy
+
 COPY package*.json ./
 
 RUN npm install
