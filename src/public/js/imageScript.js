@@ -19,7 +19,8 @@ function previewImage(element) {
         .parentNode
         .nextElementSibling
         .style
-        .display = "block";
+        .display = "flex";
+    document.body.style.overflowY = "hidden";
 }
 
 function setImageLike(element) {
@@ -47,4 +48,5 @@ function closeImgModal(element) {
         .parentNode
         .style
         .display = "none";
+        document.body.style.overflowY = "auto";
 }

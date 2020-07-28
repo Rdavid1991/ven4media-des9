@@ -1,51 +1,50 @@
+ {{>navbar}}
+
 <div class="container mt-2">
-
     <div class="row">
-        <div class="col-6">
-            <div class="d-flex justify-content-center">
-                <div class="card">
-                    <div class="d-flex justify-content-center w-100 p-3">
-                        {{#if isImage }}
-                        <img src="/public/upload/mark/{{file.filename}}" class="card-img-top w-50" alt="" srcset="">
-                        {{/if}}
-                        {{#if isVideo }}
-                        <div class="card p-1">
-                            <div class=" info pointer position-relative">
-                                <img src="/public/upload/video-miniature/{{file.miniature}}.png" loading="lazy" alt=""
-                                    class="card-img-top">
-                                <span class="time">{{file.min}}:{{file.seg}}</span>
-                                <h5 class="position-absolute info-text text-truncate" style="max-width: 50%;">
-                                    {{file.title}}</h5>
-                            </div>
+        <div class="col-6 d-flex justify-content-center align-items-center">
+            <div class="card">
+                <div class="d-flex justify-content-center w-100 p-3">
+                    {{#if isImage }}
+                    <img src="/public/upload/mark/{{file.filename}}" class="card-img-top w-50" alt="" srcset="">
+                    {{/if}}
+                    {{#if isVideo }}
+                    <div class="card p-1">
+                        <div class=" info pointer position-relative">
+                            <img src="/public/upload/video-miniature/{{file.miniature}}.png" loading="lazy" alt=""
+                                class="card-img-top">
+                            <span class="time">{{file.min}}:{{file.seg}}</span>
+                            <h5 class="position-absolute info-text text-truncate" style="max-width: 50%;">
+                                {{file.title}}</h5>
                         </div>
-                        {{/if}}
-                        {{#if isAudio }}
-                        <div class="card">
-                            <div class="card-body p-1">
-                                <div class="d-flex">
-                                    <div class="position-relative w-50">
-                                        <img src="/public/assets/img/sound.png" class="img-thumbnail" alt="" srcset="">
-                                        <div data="{{file.filename}}" class="play position-absolute"></div>
-                                    </div>
+                    </div>
+                    {{/if}}
+                    {{#if isAudio }}
+                    <div class="card">
+                        <div class="card-body p-1">
+                            <div class="d-flex">
+                                <div class="position-relative w-50">
+                                    <img src="/public/assets/img/sound.png" class="img-thumbnail" alt="" srcset="">
+                                    <div data="{{file.filename}}" class="play position-absolute"></div>
+                                </div>
 
-                                    <div class="d-block">
-                                        <h5 class="ml-1">{{file.title}}</h5>
-                                        <span class="ml-1">{{file.description}}</span>
-                                    </div>
+                                <div class="d-block">
+                                    <h5 class="ml-1 text-capitalize">{{file.title}}</h5>
+                                    <span class="ml-1">{{file.description}}</span>
                                 </div>
                             </div>
-                            <input type="range" value="0" min="0" max="100" class="form-control-range" id="{{file.filename}}">
                         </div>
-                        {{/if}}
+                        <input type="range" value="0" min="0" max="100" class="form-control-range"
+                            id="{{file.filename}}">
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of
-                            the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
+                    {{/if}}
                 </div>
+                {{#unless isAudio}}
+                <div class="card-body">
+                    <h5 class="card-title">{{file.title}}</h5>
+                    <p class="card-text">{{file.description}}</p>
+                </div>
+                {{/unless}}
             </div>
         </div>
         <div class="col-6">

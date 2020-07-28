@@ -46,7 +46,7 @@ uploadFileForm.addEventListener("submit", (e) => {
                 } else if (ext.match(/.jpg/g) || ext.match(/.png/g) || ext.match(/.jpeg/g) || ext.match(/.gif/g)) {
                     groupButton.innerHTML = `<a href="/profile/images" class="btn btn-success">Successful</a>`;
                 } else if (ext.match(/.mp3/g) || ext.match(/.acc/g)) {
-                    groupButton.innerHTML = `<a href="/profile/sounds" class="btn btn-success">Successful</a>`;
+                    groupButton.innerHTML = `<a href="/profile/audios" class="btn btn-success">Successful</a>`;
                 }
             }
             openUploadModal();
@@ -58,7 +58,7 @@ uploadFileForm.addEventListener("submit", (e) => {
 });
 
 function openUploadModal() {
-    modal.style.display = "block";
+    modal.style.display = "flex";
 }
 
 // eslint-disable-next-line no-unused-vars

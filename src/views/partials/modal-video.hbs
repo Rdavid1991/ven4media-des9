@@ -1,33 +1,27 @@
 <div id="video-modal" class="modal">
     <div class="content-modal">
         <div id="close" class="close" onclick="closeVideoModal(this)">&times;</div>
-        <div class="row">
-            <div class="col-8 text-center">
-                <video class="video-modal" autoplay controls id="video-preview" src=""></video>
-            </div>
-            <div class="col-4 mt-5">
-                <div class="form-group d-flex justify-content-around">
-                    <h1>{{title}}</h1>
+        <div class="card">
+
+            <video class="video-modal card-img-top" autoplay controls id="video-preview" src=""></video>
+
+            <div class="card-body">
+                <div class="card-title">
+                    <h4 class="text-capitalize">{{title}}</h4>
                 </div>
-                <div class="form-group d-flex justify-content-center">
-                    <h3></h3>
-                    <h3>{{description}}</h3>
+                <div class="card-text">
+                    <p>{{description}}</p>
                 </div>
-                <div class="form-group d-flex justify-content-around">
-                    <h3>Subido</h3>
-                    <h3>{{timeago timestamp}}</h3>
-                </div>
-                <div class="d-flex justify-content-around">
-                    <form id="form-payment-video" action="/video/payment/{{_id}}" method="GET">
+                
+                <div class="card-text">
+                    <form action="/video/payment/{{_id}}" method="GET">
                         <div class="form-group">
-                            <button type="submit"  data="{{_id}}" class="btn btn-success">Comprar</button>
+                            <button type="submit" data="{{_id}}" class="btn btn-success">Comprar {{unitAmount price}}</button>
                         </div>
                     </form>
-                    <h3>{{unitAmount price}}</h3>
                 </div>
-                {{!--   <p class="font-weight-bold">Resolicion {{Height}}/{{width}}</p>
-                <p class="font-weight-bold">Duracion {{min}}:{{seg}}</p> --}}
+                <small>Subido: {{timeago timestamp}}</small>
             </div>
         </div>
     </div>
-</div> 
+</div>

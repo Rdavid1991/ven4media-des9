@@ -5,9 +5,9 @@ module.exports = {
     /* Mostrar pantalla principal */
     home: async (req, res) => {
 
-        const images = await Image.find({}).sort({ likes: 'desc' }).limit(5);
-        const audios = await Audio.find({}).sort({ likes: 'asc' }).limit(5);
-        const videos = await Video.find({}).sort({ likes: 'asc' }).limit(5);
+        const images = await Image.find({}).sort({ likes: 'desc' }).limit(4);
+        const audios = await Audio.find({}).sort({ likes: 'asc' }).limit(3);
+        const videos = await Video.find({}).sort({ likes: 'asc' }).limit(4);
 
         let viewModel = { audios: [], images: [], videos: [] };
 
@@ -27,7 +27,6 @@ module.exports = {
         viewModel.images = await getLike(req, images);
         viewModel.images = await getDownloaded(req, images);
 
-        console.log(viewModel);
         res.render('images', viewModel);
     },
 

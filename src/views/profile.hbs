@@ -1,50 +1,75 @@
-<div class="container mt-2">
+ {{>navbar}}
+
+<div class="container mt-2 text-center">
 
     {{#if image}}
-    {{> images-list}}
+    <div class="card">
+        <div class="card-header ">
+            <h3 class="text-primary">Mis imagenes</h3>
+        </div>
+        <div class="card-body">
+            {{> images-list}}
+        </div>
+    </div>
     {{/if}}
 
     {{#if video}}
-    {{> video-list}}
+    <div class="card">
+        <div class="card-header ">
+            <h3 class="text-primary">Mis videos</h3>
+        </div>
+        <div class="card-body">
+            {{> video-list}}
+        </div>
+    </div>
+    
     {{/if}}
 
     {{#if audio}}
-    {{> audio-list}}
+    <div class="card">
+        <div class="card-header ">
+            <h3 class="text-primary">Mis audios</h3>
+        </div>
+        <div class="card-body">
+             {{> audio-list}}
+        </div>
+    </div>
+   
     {{/if}}
 
     {{#if profile}}
-    <div class="container mt-2 text-center">
-        <div class="row">
-            <div class="card w-100 mt-2">
-                <div class="card-header">
-                    <h3 class="text-primary">Mis imagenes mas gustadas</h3>
-                </div>
-                <div class="card-body">
-                    {{> images-list}}
-                </div>
+
+    <div class="row">
+        <div class="card w-100 mt-2">
+            <div class="card-header">
+                <h3 class="text-primary">Mis imagenes mas gustadas</h3>
             </div>
-        </div>
-        <div class="row">
-            <div class="card w-100 mt-2">
-                <div class="card-header">
-                    <h3 class="text-primary">Mis videos mas gustados</h3>
-                </div>
-                <div class="card-body">
-                    {{> video-list}}
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="card w-100 mt-2">
-                <div class="card-header">
-                    <h3 class="text-primary">Mis audios mas gustados</h3>
-                </div>
-                <div class="card-body">
-                    {{> audio-list}}
-                </div>
+            <div class="card-body">
+                {{> images-list}}
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="card w-100 mt-2">
+            <div class="card-header">
+                <h3 class="text-primary">Mis videos mas gustados</h3>
+            </div>
+            <div class="card-body">
+                {{> video-list}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card w-100 mt-2">
+            <div class="card-header">
+                <h3 class="text-primary">Mis audios mas gustados</h3>
+            </div>
+            <div class="card-body">
+                {{> audio-list}}
+            </div>
+        </div>
+    </div>
+
     {{/if}}
 
 </div>

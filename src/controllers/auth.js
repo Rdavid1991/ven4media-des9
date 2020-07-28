@@ -2,7 +2,7 @@ const passport = require('passport');
 const path = require('path');
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-const { Image, Video, Audio, UserSold } = require('../models');
+const { Image, Video, Audio, UserSold, User } = require('../models');
 
 module.exports = {
     signup: (req, res) => {
@@ -10,7 +10,7 @@ module.exports = {
     },
 
     signupCreate: passport.authenticate("local-signup", {
-        successRedirect: '/profile',
+        successRedirect: '/',
         failureRedirect: '/signup',
         passReqToCallback: true
     }),
@@ -20,10 +20,23 @@ module.exports = {
     },
 
     signinLogin: passport.authenticate('local-signin', {
-        successRedirect: '/profile',
+        successRedirect: '/',
         failureRedirect: '/signin',
         passReqToCallback: true
     }),
+
+    seller: async (req,res)=>{
+
+        const {email} = req.user;
+
+        const user = await User.findOne({email});
+
+        user.seller = true;
+
+        await user.save();
+
+        res.render('upload');
+    },
 
     profile: async (req, res) => {
 

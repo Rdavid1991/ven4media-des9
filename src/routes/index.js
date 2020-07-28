@@ -51,6 +51,8 @@ module.exports = app => {
 
     router.get('/download/:file_id',isAuthenticate,auth.download);
 
+    router.get('/profile/seller', isAuthenticate,auth.seller);
+
     app.use(router);
 };
 

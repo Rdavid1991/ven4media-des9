@@ -7,6 +7,7 @@ const UserSchema = new Schema({
     name: { type: String },
     lastName: { type: String },
     user: { type: String },
+    seller:{type: Boolean}
 });
 
 UserSchema.methods.encryptPassword = (password) => {

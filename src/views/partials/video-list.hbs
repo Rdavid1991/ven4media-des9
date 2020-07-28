@@ -22,9 +22,10 @@
             </div>
 
             {{#if ../user}}
-                {{#if soldid}}
-                    <a href="/download/{{soldid}}" class="btn btn-success position-absolute" style="bottom:10px;left:10px;">Descargar</a>
-                {{/if}}
+            {{#if soldid}}
+            <a href="/download/{{soldid}}" class="btn btn-success position-absolute"
+                style="bottom:10px;left:10px;">Descargar</a>
+            {{/if}}
             {{/if}}
         </div>
         {{> modal-video}}

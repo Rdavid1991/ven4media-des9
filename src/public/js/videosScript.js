@@ -13,7 +13,8 @@ videoSelection.addEventListener('click', (e) => {
 
 function previewVideo(element) {
     let modal = element.parentNode.parentNode.nextElementSibling;
-    modal.style.display = "block";
+    modal.style.display = "flex";
+    document.body.style.overflowY = "hidden";
 
     let xhs = new XMLHttpRequest();
     xhs.open("GET", "/watch/" + element.getAttribute("data"));
@@ -56,4 +57,5 @@ function closeVideoModal(element) {
     videoPreview.src = "";
 
     element.parentNode.parentNode.style.display = "none";
+    document.body.style.overflowY = "auto";
 }

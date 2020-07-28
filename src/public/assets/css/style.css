@@ -384,6 +384,17 @@ body {
   user-select: none;
   overflow-x: hidden;
 }
+body::-webkit-scrollbar {
+  width: 0.8rem;
+}
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #eb6468;
+  outline: 1px solid slategrey;
+}
 
 /* Main content */
 .main {
@@ -396,34 +407,38 @@ body {
 /* Modal inicio */
 .modal {
   display: none;
-  /* Hidden by default */
+  justify-content: center;
   position: fixed;
-  /* Stay in place */
   z-index: 2;
-  /* Sit on top */
   left: 0;
   top: 0;
-  min-width: 100vw;
-  /* Full width */
-  min-height: 100vh;
-  /* Full height */
-  overflow: hidden;
-  /* Enable scroll if needed */
-  background-color: black;
-  /* Fallback color */
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
-  /* Black w/ opacity */
 }
 
 /* Modal Content/Box */
 .content-modal {
   background-color: #fefefe;
-  margin: 5% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 90%;
-  height: 89%;
-  overflow-y: hidden;
+  width: 50%;
+  overflow-y: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 10px;
+}
+.content-modal::-webkit-scrollbar {
+  width: 0.8rem;
+}
+.content-modal::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 0 10px 10px 0;
+}
+.content-modal::-webkit-scrollbar-thumb {
+  border-radius: 0 10px 10px 0;
+  background-color: #eb6468;
+  outline: 1px solid slategrey;
 }
 
 /* The Close Button */
@@ -549,6 +564,13 @@ body {
 
 .body-top {
   margin-top: 8rem;
+}
+
+.logo-text {
+  text-decoration: none !important;
+  font-family: Brush Script MT, Brush Script Std, cursive;
+  font-weight: bold;
+  font-size: 30px;
 }
 
 /*# sourceMappingURL=style.css.map */
