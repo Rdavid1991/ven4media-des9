@@ -4,11 +4,13 @@ services:
 
   mongo:
     container_name: mongo
-    image: mongo
+    image: centos/mongodb-32-centos7
+    env_file:  
+      - .env
     ports: 
       - "27017:27017" 
     volumes: 
-     - "/data/db:/data/db" 
+      - "/data/db:/data/db" 
 
   app:
     container_name: appnode

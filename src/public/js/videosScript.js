@@ -4,21 +4,21 @@ const videoSelection = document.getElementById('video-selection');
 videoSelection.addEventListener('click', (e) => {
     let element = e.target;
 
-    if (element.getAttribute("name") === "figure") {
+    if (element.getAttribute('name') === 'figure') {
         previewVideo(element);
-    } else if (element.getAttribute("name") === "like") {
+    } else if (element.getAttribute('name') === 'like') {
         setVideoLike(element);
     }
 });
 
 function previewVideo(element) {
     let modal = element.parentNode.parentNode.nextElementSibling;
-    modal.style.display = "flex";
-    document.body.style.overflowY = "hidden";
+    modal.style.display = 'flex';
+    document.body.style.overflowY = 'hidden';
 
     let xhs = new XMLHttpRequest();
-    xhs.open("GET", "/watch/" + element.getAttribute("data"));
-    xhs.responseType = "arraybuffer";
+    xhs.open('GET', '/watch/' + element.getAttribute('data'));
+    xhs.responseType = 'arraybuffer';
     // eslint-disable-next-line no-unused-vars
     xhs.onload = (e) => {
         let blob = new Blob([xhs.response]);
@@ -33,7 +33,7 @@ function previewVideo(element) {
 
 function setVideoLike(element) {
     let xhs = new XMLHttpRequest();
-    xhs.open("POST", "/videos/" + element.getAttribute("data") + "/like");
+    xhs.open('POST', '/videos/' + element.getAttribute('data') + '/like');
     // eslint-disable-next-line no-unused-vars
     xhs.onload = (e) => {
         let response = JSON.parse(xhs.response);
@@ -54,8 +54,8 @@ function closeVideoModal(element) {
     let videoPreview = element.parentNode.getElementsByClassName('video-modal')[0];
 
     videoPreview.pause();
-    videoPreview.src = "";
+    videoPreview.src = '';
 
-    element.parentNode.parentNode.style.display = "none";
-    document.body.style.overflowY = "auto";
+    element.parentNode.parentNode.style.display = 'none';
+    document.body.style.overflowY = 'auto';
 }

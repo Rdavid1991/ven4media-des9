@@ -1,4 +1,5 @@
-const path = require("path");
+const path = require('path');
+const fs = require('fs');
 const { Video} = require('../models');
 
 module.exports ={
@@ -15,11 +16,15 @@ module.exports ={
         if (video) {
             video.views = video.views + 1;
             await video.save();
-            res.sendFile(path.join(__dirname,`../public/upload/video/${video.filename}`));
+            
+            let file = fs.createReadStream(path.join(__dirname,`../public/upload/video/${video.filename}`));
+            //res.sendFile(path.join(__dirname,`../public/upload/video/${video.filename}`));
+            file.pipe(res);
         } else {
-            res.redirect("/");
+            res.redirect('/');
         }
     },
+
     videoPreview:(req,res)=>{
         res.sendFile(path.join(__dirname,`../public/upload/video/${req.params.video_id}`));
     }

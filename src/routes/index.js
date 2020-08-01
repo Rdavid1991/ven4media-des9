@@ -35,7 +35,6 @@ module.exports = app => {
     router.post('/audios/:audio_id/like',home.audLike);
 
     router.get('/watch/:video_id', blob.videoModal);
-    router.get('/video-file/:video_id', blob.videoPreview);
 
     router.post('/upload', isAuthenticate, create.data);
 
