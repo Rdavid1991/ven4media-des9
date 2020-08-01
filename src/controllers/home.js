@@ -14,6 +14,9 @@ module.exports = {
         viewModel.images = await getLike(req,images);
         viewModel.videos = await getLike(req,videos);
         viewModel.audios = await getLike(req,audios);
+        viewModel.images = await getDownloaded(req, images);
+        viewModel.audios = await getDownloaded(req, audios);
+        viewModel.videos = await getDownloaded(req, videos);
 
         res.render('home', viewModel);
     },

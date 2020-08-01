@@ -30,7 +30,8 @@
                   style="width: 30px;height: 30px;border-radius: 50%!important;">
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                {{#if user.seller}}
+                {{#if seller}}
+                <p class="dropdown-item">{{user.name}}</p>
                 <a class="dropdown-item" href="/profile">Mis archivos más gustados</a>
                 <a class="dropdown-item" href="/profile/images">Mis imágenes</a>
                 <a class="dropdown-item" href="/profile/videos">Mis vídeos</a>
@@ -63,13 +64,11 @@
           <a class="nav-link text-center pestaña grey text-reset" href="/videos" id="active-video">Vídeos</a>
         </div>
         <div class="col-3">
-          {{#if user.seller}}
+          {{#if seller}}
           <a class="nav-link text-center pestaña grey text-reset" href="/upload" id="active-upload">Subir archivo</a>
           {{/if}}
         </div>
       </div>
     </div>
   </div>
-
-
 </nav>

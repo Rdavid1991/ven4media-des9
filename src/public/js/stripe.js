@@ -5,9 +5,9 @@ var stripe;
 var orderData = {};
 
 // Disable the button until we have Stripe set up on the page
-document.querySelector("button").disabled = true;
+document.querySelector('button').disabled = true;
 
-fetch("/stripe-key")
+fetch('/stripe-key')
 	.then(function (result) {
 		return result.json();
 	})
@@ -15,18 +15,20 @@ fetch("/stripe-key")
 		return setupElements(data);
 	})
 	.then(function ({ stripe, card, clientSecret }) {
-		document.querySelector("button").disabled = false;
+		document.querySelector('button').disabled = false;
 
-		var form = document.getElementById("payment-form");
-		form.addEventListener("submit", function (event) {
+		var form = document.getElementById('payment-form');
+		form.addEventListener('submit', function (event) {
 			event.preventDefault();
 
 			let { target, submitter } = event;
 
 			orderData.items = [{ id: submitter.getAttribute('datafile') }];
-			orderData.currency = "usd";
+			orderData.currency = 'usd';
 			orderData.fileType = submitter.getAttribute('datatype');
-			orderData.ownerName = { "name": target.name, };
+			orderData.ownerName = { 'name': target.name, };
+
+			event.submitter.disabled = true;	
 
 			pay(stripe, card, clientSecret);
 		});
@@ -38,22 +40,22 @@ var setupElements = function (data) {
 	var elements = stripe.elements();
 	var style = {
 		base: {
-			color: "#32325d",
+			color: '#32325d',
 			fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-			fontSmoothing: "antialiased",
-			fontSize: "16px",
-			"::placeholder": {
-				color: "#aab7c4"
+			fontSmoothing: 'antialiased',
+			fontSize: '16px',
+			'::placeholder': {
+				color: '#aab7c4'
 			}
 		},
 		invalid: {
-			color: "#fa755a",
-			iconColor: "#fa755a"
+			color: '#fa755a',
+			iconColor: '#fa755a'
 		}
 	};
 
-	var card = elements.create("card", { style: style });
-	card.mount("#card-element");
+	var card = elements.create('card', { style: style });
+	card.mount('#card-element');
 
 	return {
 		stripe: stripe,
@@ -66,12 +68,12 @@ var handleAction = function (clientSecret) {
 	stripe.handleCardAction(clientSecret).then(function (data) {
 
 		if (data.error) {
-			showError("Your card was not authenticated, please try again");
-		} else if (data.paymentIntent.status === "requires_confirmation") {
-			fetch("/pay", {
-				method: "POST",
+			showError('Your card was not authenticated, please try again');
+		} else if (data.paymentIntent.status === 'requires_confirmation') {
+			fetch('/pay', {
+				method: 'POST',
 				headers: {
-					"Content-Type": "application/json"
+					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
 					paymentIntentId: data.paymentIntent.id
@@ -99,17 +101,17 @@ var pay = function (stripe, card) {
 
 	// Collects card details and creates a PaymentMethod
 	stripe
-		.createPaymentMethod("card", card)
+		.createPaymentMethod('card', card)
 		.then(function (result) {
 			if (result.error) {
 				showError(result.error.message);
 			} else {
 				orderData.paymentMethodId = result.paymentMethod.id;
 
-				return fetch("/pay", {
-					method: "POST",
+				return fetch('/pay', {
+					method: 'POST',
 					headers: {
-						"Content-Type": "application/json"
+						'Content-Type': 'application/json'
 					},
 					body: JSON.stringify(orderData)
 				});
@@ -139,14 +141,14 @@ var orderComplete = function (clientSecret) {
 		// eslint-disable-next-line no-unused-vars
 		var paymentIntentJson = JSON.stringify(paymentIntent, null, 2);
 
-		document.querySelector(".sr-payment-form").classList.add("hidden");
+		document.querySelector('.sr-payment-form').classList.add('hidden');
 		//document.querySelector("pre").textContent = paymentIntentJson;
 
-		document.querySelector("#result").innerHTML = `<a id="download" href="/download/${paymentIntent.client_secret}" class="btn btn-success">Descargar</a>`;
+		document.querySelector('#result').innerHTML = `<a id="download" href="/download/${paymentIntent.client_secret}" class="btn btn-success">Descargar</a>`;
 
-		document.querySelector(".sr-result").classList.remove("hidden");
+		document.querySelector('.sr-result').classList.remove('hidden');
 		setTimeout(function () {
-			document.querySelector(".sr-result").classList.add("expand");
+			document.querySelector('.sr-result').classList.add('expand');
 		}, 200);
 
 		changeLoadingState(false);
@@ -155,22 +157,22 @@ var orderComplete = function (clientSecret) {
 
 var showError = function (errorMsgText) {
 	changeLoadingState(false);
-	var errorMsg = document.querySelector(".sr-field-error");
+	var errorMsg = document.querySelector('.sr-field-error');
 	errorMsg.textContent = errorMsgText;
 	setTimeout(function () {
-		errorMsg.textContent = "";
+		errorMsg.textContent = '';
 	}, 4000);
 };
 
 // Show a spinner on payment submission
 var changeLoadingState = function (isLoading) {
 	if (isLoading) {
-		document.querySelector("button").disabled = true;
-		document.querySelector("#spinner").classList.remove("hidden");
-		document.querySelector("#button-text").classList.add("hidden");
+		document.querySelector('button').disabled = true;
+		document.querySelector('#spinner').classList.remove('hidden');
+		document.querySelector('#button-text').classList.add('hidden');
 	} else {
-		document.querySelector("button").disabled = false;
-		document.querySelector("#spinner").classList.add("hidden");
-		document.querySelector("#button-text").classList.remove("hidden");
+		document.querySelector('button').disabled = false;
+		document.querySelector('#spinner').classList.add('hidden');
+		document.querySelector('#button-text').classList.remove('hidden');
 	}
 };
