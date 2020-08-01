@@ -3,6 +3,7 @@ const path = require('path');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const { Image, Video, Audio, UserSold, User } = require('../models');
+const {getSeller} = require('./seller');
 
 module.exports = {
     signup: (req, res) => {
@@ -44,49 +45,49 @@ module.exports = {
         const audios = await Audio.find({ userid: req.user._id }).sort({ likes: 'asc' }).limit(5);
         const videos = await Video.find({ userid: req.user._id }).sort({ likes: 'asc' }).limit(5);
 
-        res.render('profile', { images, audios, videos, profile: true });
+        res.render('profile', { images, audios, videos, profile: true, seller: getSeller(req) });
     },
 
     images: async (req, res) => {
 
         const images = await Image.find({ userid: req.user._id }).sort({ timestamp: 'desc' });
 
-        res.render('profile', { images, image: true });
+        res.render('profile', { images, image: true, seller: getSeller() });
     },
 
     video: async (req, res) => {
 
         const videos = await Video.find({ userid: req.user._id }).sort({ timestamp: 'desc' });
 
-        res.render('profile', { videos, video: true });
+        res.render('profile', { videos, video: true, seller: getSeller() });
     },
 
     audio: async (req, res) => {
 
         const audios = await Audio.find({ userid: req.user._id }).sort({ timestamp: 'desc' });
 
-        res.render('profile', { audios, audio: true });
+        res.render('profile', { audios, audio: true, seller: getSeller() });
     },
 
     imagePayment: async (req, res) => {
         const { image_id } = req.params;
         const image = await Image.find({ _id: image_id });
 
-        res.render('payment', { file: image[0], type: 'image', isImage: true });
+        res.render('payment', { file: image[0], type: 'image', isImage: true, seller: getSeller() });
     },
 
     videoPayment: async (req, res) => {
         const { video_id } = req.params;
         const video = await Video.findOne({ _id: video_id });
 
-        res.render('payment', { file: video, type: 'video', isVideo: true });
+        res.render('payment', { file: video, type: 'video', isVideo: true, seller: getSeller() });
     },
 
     audioPayment: async (req, res) => {
         const { audio_id } = req.params;
         const audio = await Audio.findOne({ _id: audio_id });
 
-        res.render('payment', { file: audio, type: 'audio', isAudio: true });
+        res.render('payment', { file: audio, type: 'audio', isAudio: true, seller:getSeller() });
     },
 
     stripeKey: (req, res) => {
@@ -104,7 +105,7 @@ module.exports = {
             },
             async function (err, customer) {
 
-                console.log(customer)
+                console.log(customer);
                 if (customer) {
                     try {
                         let intent;
@@ -214,3 +215,4 @@ const calculateOrderAmount = async (items, type) => {
         return audio.price;
     }
 };
+

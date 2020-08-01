@@ -10,16 +10,16 @@ services:
     ports: 
       - "27017:27017" 
     volumes: 
-      - "/data/db:/data/db" 
+      - "./docker/volumes/db/data:/var/lib/mongodb/data" 
 
   app:
     container_name: appnode
-    image: multimedia-market
+    image: ven4media
     build: 
         context: .
     ports:
         - "3000:3000"
     volumes: 
-     - "/app/upload:/home/app/src/public/upload"
+     - "./docker/volumes/app/upload:/home/app/src/public/upload"
     depends_on:
         - mongo

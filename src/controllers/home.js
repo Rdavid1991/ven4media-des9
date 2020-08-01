@@ -1,4 +1,5 @@
 const { Image, Video, Audio, UserLike, UserSold } = require('../models');
+const {getSeller} = require('./seller');
 
 module.exports = {
 
@@ -17,8 +18,9 @@ module.exports = {
         viewModel.images = await getDownloaded(req, images);
         viewModel.audios = await getDownloaded(req, audios);
         viewModel.videos = await getDownloaded(req, videos);
+        viewModel.seller = await getSeller(req);
 
-        res.render('home', viewModel);
+        res.render('home', viewModel, );
     },
 
     /* Mostrar lista de imagenes */
@@ -29,6 +31,7 @@ module.exports = {
         let viewModel = { images: [] };
         viewModel.images = await getLike(req, images);
         viewModel.images = await getDownloaded(req, images);
+        viewModel.seller = await getSeller(req);
 
         res.render('images', viewModel);
     },
@@ -39,6 +42,8 @@ module.exports = {
         let viewModel = { audios: [] };
         viewModel.audios = await getLike(req, audios);
         viewModel.audios = await getDownloaded(req, audios);
+        viewModel.seller = await getSeller(req);
+
         res.render('sounds', viewModel);
     },
 
@@ -48,11 +53,13 @@ module.exports = {
         let viewModel = { videos: [] };
         viewModel.videos = await getLike(req, videos);
         viewModel.videos = await getDownloaded(req, videos);
+        viewModel.seller = await getSeller(req);
+
         res.render('videos', viewModel);
     },
 
     upload: async (req, res) => {
-        res.render('upload');
+        res.render('upload',{seller: await getSeller(req)});
     },
 
     imgLike: async (req, res) => {
